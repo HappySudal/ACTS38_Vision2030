@@ -4,63 +4,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACTS38 Vision 2030 - Viewer</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+    <title>ACTS38 Vision 2030 : Project Viewer</title>
 
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+    <style>
         :root {
-            --bg-color: #05070a;
-            --accent-blue: #00d2ff;
-            --accent-orange: #ff9d00;
-            --accent-green: #00ff88;
-            --text-main: #e0e0e0;
-            --text-dim: #888;
-            --line-color: rgba(255, 255, 255, 0.15);
-            --node-bg: rgba(255, 255, 255, 0.05);
-            --glass-bg: rgba(20, 25, 35, 0.8);
-            --highlight-bg: rgba(255, 157, 0, 0.3);
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --text-main: #f3f4f6;
+            --text-dim: #9ca3af;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --line-color: rgba(75, 85, 99, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Noto Sans KR', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow: auto;
-            min-width: 100vw;
-            min-height: 100vh;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
         }
 
-        .grid-bg {
+        /* 🌌 배경 애니메이션 */
+        .bg-glow {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                radial-gradient(circle at 50% 50%, #101520 0%, transparent 80%),
-                linear-gradient(var(--line-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
-            background-size: 100% 100%, 50px 50px, 50px 50px;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05), transparent 70%);
             z-index: -1;
-            opacity: 0.5;
         }
 
-        /* 무한 캔버스 스타일 */
-        #viewport {
+        /*  Header */
+        header {
             position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-area h1 {
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            font-weight: 400;
+        }
+
+        /* 🔍 검색 바 */
+        .search-container {
+            position: fixed;
+            top: 100px;
+            left: 40px;
+            z-index: 90;
+            background: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 99px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            width: 200px;
+        }
+
+        /* 🗺️ 마인드맵 인터페이스 */
+        #viewport {
             width: 100vw;
             height: 100vh;
-            overflow: hidden;
             cursor: grab;
-            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #viewport:active {
@@ -68,88 +111,24 @@
         }
 
         #canvas {
-            position: absolute;
             transform-origin: 0 0;
-            will-change: transform;
+            transition: transform 0.1s ease-out;
+            padding: 2000px;
+            /* 여유 공간 */
         }
 
         .container {
-            display: inline-flex;
-            align-items: center;
-            padding: 500px;
-            min-width: max-content;
-        }
-
-        .search-wrapper {
-            position: fixed;
-            top: 30px;
-            right: 40px;
-            z-index: 100;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: var(--glass-bg);
-            padding: 8px 15px;
-            border-radius: 30px;
-            border: 1px solid var(--accent-blue);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
-        }
-
-        .search-input {
-            background: transparent;
-            border: none;
-            color: white;
-            padding: 5px;
-            outline: none;
-            width: 180px;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        .node {
-            cursor: pointer;
-            padding: 12px 25px;
-            border-radius: 8px;
-            background: var(--node-bg);
-            border: 1px solid var(--line-color);
-            white-space: normal;
-            word-break: keep-all;
-            transition: all 0.3s ease;
+            gap: 60px;
             position: relative;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            backdrop-filter: blur(10px);
-            user-select: none;
-            max-width: 450px;
-            line-height: 1.5;
         }
 
-        .node:hover {
-            border-color: var(--accent-blue);
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .node.highlight {
-            border-color: var(--accent-orange);
-            background: var(--highlight-bg);
-            box-shadow: 0 0 15px var(--accent-orange);
-        }
-
-        .node.root {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 20px;
-            font-weight: 400;
-            border-left: 5px solid var(--accent-blue);
-            padding: 20px 40px;
-            background: var(--glass-bg);
-        }
-
+        /* 🌲 트리 구조 */
         .tree {
             display: flex;
             flex-direction: column;
-            gap: 40px;
-            padding-left: 100px;
+            gap: 20px;
             position: relative;
         }
 
@@ -159,74 +138,122 @@
             position: relative;
         }
 
-        .sub-nodes {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding-left: 50px;
-            margin-left: 30px;
-            border-left: 2px solid var(--line-color);
-            transition: all 0.3s ease;
+        /* 연결선 가로 */
+        .branch::before {
+            content: "";
+            position: absolute;
+            left: -40px;
+            width: 40px;
+            height: 2px;
+            background: var(--line-color);
         }
 
-        .sub-nodes.hidden {
+        /* 연결선 세로 (부모 트리에서 내려오는 선) */
+        .tree::before {
+            content: "";
+            position: absolute;
+            left: -40px;
+            top: 12px;
+            bottom: 12px;
+            width: 2px;
+            background: var(--line-color);
+        }
+
+        .root-branch::before,
+        .root-branch>.tree::before {
             display: none;
+        }
+
+        /* 💎 노드 스타일 */
+        .node {
+            background: var(--card-bg);
+            padding: 14px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .node:hover {
+            transform: translateX(5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .node.root {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: none;
+            padding: 20px 35px;
+        }
+
+        .node.root .node-text {
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: white;
+        }
+
+        .node-text {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            white-space: nowrap;
         }
 
         .status {
             font-style: normal;
+            font-size: 0.8rem;
         }
 
-        .completed {
+        .status.completed {
             color: var(--accent-green);
         }
 
-        .pending {
-            color: var(--text-dim);
+        /* 💡 하이라이트 효과 */
+        .highlight {
+            border-color: var(--accent-orange) !important;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
         }
 
-        .branch::before {
-            content: "";
-            position: absolute;
-            left: -100px;
-            width: 100px;
-            height: 2px;
-            background: var(--line-color);
-            z-index: -1;
+        .hidden {
+            display: none;
         }
 
-        .header {
-            position: fixed;
-            top: 40px;
-            left: 40px;
-            font-family: 'Pretendard', sans-serif;
-            z-index: 100;
-        }
+        /* 📱 반응형 */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
 
-        .header h2 {
-            margin: 0;
-            font-size: 18px;
-            color: var(--accent-blue);
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
-        }
+            .search-container {
+                left: 20px;
+                top: 80px;
+            }
 
-        /* 뷰어 전용: 편집 버튼 미표시 */
-        .btn-group,
-        .drag-handle {
-            display: none !important;
+            .node {
+                min-width: 140px;
+                padding: 10px 15px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="grid-bg"></div>
+    <div class="bg-glow"></div>
 
-    <div class="header">
-        <h2>ACTS38 Vision 2030 : Strategic Viewer</h2>
-    </div>
+    <header>
+        <div class="logo-area">
+            <h1>ACTS38 Vision 2030</h1>
+        </div>
+    </header>
 
-    <div class="search-wrapper">
-        <span style="font-size: 14px;">🔍</span>
+    <div class="search-container">
         <input type="text" class="search-input" placeholder="전략 검색..." onkeyup="searchNodes(this.value)">
     </div>
 
@@ -342,6 +369,81 @@
                                                         <i class="status">•</i>
                                                         <span class="node-text">기술과 인체가 가장 완벽하게 만나는 지점을 찾아내어, 최상의 컨디션을
                                                             유지하는 라이프스타일을 완성함.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)">
+                                        <i class="status">•</i>
+                                        <span class="node-text">ACTS38의 슬로건</span>
+                                    </div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text"><b>Main Slogan</b></span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">"진정한 아름다움은 당신의 미소입니다."</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text">Sub Slogan</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">항상 여유와 미소를 잃지 않도록, 보이지 않는 곳에서 당신을 수호하는
+                                                            조용하고 강력한 기술력.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)">
+                                        <i class="status">•</i>
+                                        <span class="node-text">ACTS38의 지향점</span>
+                                    </div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text">Silence Etiquette (싸이런스 에티켓)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">진정한 전문가는 자신을 드러내지 않습니다. 냄새, 자극 등 모든
+                                                            번거로움을 제거한 절제된 프리미엄.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text">Private Performance (프라이빗 퍼포먼스)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">대중적인 과시보다, 확실한 변화를 당신만이 체감할 수 있는 전문가적
+                                                            가치를 지향.</span>
                                                     </div>
                                                 </div>
                                             </div>
