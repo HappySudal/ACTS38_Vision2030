@@ -472,123 +472,63 @@
                         <div class="node root" onclick="toggleChildren(this, event)">
                             <span class="node-text" contenteditable="true" spellcheck="false">ACTS38 Vision 2030</span>
                             <div class="btn-group">
-                                <span class="action-btn add-btn" title="항목 추가"
-                                    onclick="addNewNode(this, event)">+</span>
-                                <span class="action-btn del-btn" title="항목 삭제"
-                                    onclick="deleteNode(this, event)">-</span>
+                                <span class="action-btn add-btn" title="항목 추가" onclick="addNewNode(this, event)">+</span>
+                                <span class="action-btn del-btn" title="항목 삭제" onclick="deleteNode(this, event)">-</span>
                             </div>
                         </div>
-                        <!-- 하위 트리들... (생략된 것처럼 보이지만 실제로는 다 넣어드릴게요) -->
                         <div class="tree" id="main-tree">
-                            <!-- Branch 1: 조직 및 인력 -->
                             <div class="branch">
-                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i
-                                        class="drag-handle">⠿</i><span class="node-text" contenteditable="true">조직 및
-                                        인력</span>
-                                    <div class="btn-group"><span class="action-btn add-btn"
-                                            onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
-                                            onclick="deleteNode(this, event)">-</span></div>
+                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><span class="node-text" contenteditable="true">조직 및 인력</span>
+                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                 </div>
                                 <div class="sub-nodes">
                                     <div class="branch">
-                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i
-                                                class="drag-handle">⠿</i><i class="status completed">■</i><span
-                                                class="node-text" contenteditable="true">수달
-                                                대표 (CEO)</span>
-                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                    onclick="addNewNode(this, event)">+</span><span
-                                                    class="action-btn del-btn"
-                                                    onclick="deleteNode(this, event)">-</span></div>
+                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status completed">■</i><span class="node-text" contenteditable="true">수달 대표 (CEO)</span>
+                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                         </div>
                                     </div>
                                     <div class="branch">
-                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i
-                                                class="drag-handle">⠿</i><i class="status">•</i><span class="node-text"
-                                                contenteditable="true">만두 실장(CSO)</span>
-                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                    onclick="addNewNode(this, event)">+</span><span
-                                                    class="action-btn del-btn"
-                                                    onclick="deleteNode(this, event)">-</span></div>
+                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">만두 실장(CSO)</span>
+                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                         </div>
                                     </div>
                                     <div class="branch">
-                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i
-                                                class="drag-handle">⠿</i><i class="status">•</i><span class="node-text"
-                                                contenteditable="true">랜도 수석(CTO)</span>
-                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                    onclick="addNewNode(this, event)">+</span><span
-                                                    class="action-btn del-btn"
-                                                    onclick="deleteNode(this, event)">-</span></div>
+                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">랜도 수석(CTO)</span>
+                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="branch">
-                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i
-                                        class="drag-handle">⠿</i><i class="status">•</i><span class="node-text"
-                                        contenteditable="true">ACTS38의 세계관</span>
-                                    <div class="btn-group"><span class="action-btn add-btn"
-                                            onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
-                                            onclick="deleteNode(this, event)">-</span></div>
+                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">ACTS38의 세계관</span>
+                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                 </div>
                                 <div class="sub-nodes">
                                     <div class="branch">
-                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i
-                                                class="drag-handle">⠿</i><i class="status">•</i><span class="node-text"
-                                                contenteditable="true">ACTS38의 철학&nbsp;</span>
-                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                    onclick="addNewNode(this, event)">+</span><span
-                                                    class="action-btn del-btn"
-                                                    onclick="deleteNode(this, event)">-</span></div>
+                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">ACTS38의 철학</span>
+                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                         </div>
                                         <div class="sub-nodes">
                                             <div class="branch">
-                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                        class="status">•</i><span class="node-text"
-                                                        contenteditable="true">Restore (기능의 복원)</span>
-                                                    <div class="btn-group"><span class="action-btn add-btn"
-                                                            onclick="addNewNode(this, event)">+</span><span
-                                                            class="action-btn del-btn"
-                                                            onclick="deleteNode(this, event)">-</span></div>
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">Restore (기능의 복원)</span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                 </div>
                                                 <div class="sub-nodes">
                                                     <div class="branch">
-                                                        <div class="node" onclick="toggleChildren(this, event)"
-                                                            draggable="true"><i class="drag-handle">⠿</i><i
-                                                                class="status">•</i><span class="node-text"
-                                                                contenteditable="true">단순히 달라지는 것이 아니라, 몸이 가진 본연의 기능을 가장
-                                                                자연스럽고 온전한 상태로 되돌리는 것. (생체 리듬의 정상화 및 근본적 케어 시스템)</span>
-                                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                    class="action-btn del-btn"
-                                                                    onclick="deleteNode(this, event)">-</span></div>
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">단순히 달라지는 것이 아니라, 몸이 가진 본연의 기능을 가장 자연스럽고 온전한 상태로 되돌리는 것. (생체 리듬의 정상화 및 근본적 케어 시스템)</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="branch">
-                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                        class="status">•</i><span class="node-text"
-                                                        contenteditable="true">Limitless (가능의 확장)</span>
-                                                    <div class="btn-group"><span class="action-btn add-btn"
-                                                            onclick="addNewNode(this, event)">+</span><span
-                                                            class="action-btn del-btn"
-                                                            onclick="deleteNode(this, event)">-</span></div>
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">Limitless (가능의 확장)</span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                 </div>
                                                 <div class="sub-nodes">
                                                     <div class="branch">
-                                                        <div class="node" onclick="toggleChildren(this, event)"
-                                                            draggable="true"><i class="drag-handle">⠿</i><i
-                                                                class="status">•</i><span class="node-text"
-                                                                contenteditable="true">복원된 기초 위에서 일상과 퍼포먼스를 한없이 확장하도록
-                                                                기술적으로 뒷받침하는 것. (기술적 한계를 넘어서는 전문적 Body&amp;Mind Total
-                                                                Support)</span>
-                                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                    class="action-btn del-btn"
-                                                                    onclick="deleteNode(this, event)">-</span></div>
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">복원된 기초 위에서 일상과 퍼포먼스를 한없이 확장하도록 기술적으로 뒷받침하는 것. (기술적 한계를 넘어서는 전문적 Body&amp;Mind Total Support)</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -596,232 +536,92 @@
                                         </div>
                                     </div>
                                     <div class="branch">
-                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i
-                                                class="drag-handle">⠿</i><i class="status">•</i><span class="node-text"
-                                                contenteditable="true">ACTS38의 핵심가치&nbsp;</span>
-                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                    onclick="addNewNode(this, event)">+</span><span
-                                                    class="action-btn del-btn"
-                                                    onclick="deleteNode(this, event)">-</span></div>
+                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">ACTS38의 핵심가치</span>
+                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                         </div>
                                         <div class="sub-nodes">
                                             <div class="branch">
-                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                        class="status">•</i><span class="node-text"
-                                                        contenteditable="true"><b data-path-to-node="9,0,0"
-                                                            data-index-in-node="0">Potential Activation (잠재력의
-                                                            활성화)</b></span>
-                                                    <div class="btn-group"><span class="action-btn add-btn"
-                                                            onclick="addNewNode(this, event)">+</span><span
-                                                            class="action-btn del-btn"
-                                                            onclick="deleteNode(this, event)">-</span></div>
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true"><b>Potential Activation (잠재력의 활성화)</b></span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                 </div>
                                                 <div class="sub-nodes">
                                                     <div class="branch">
-                                                        <div class="node" onclick="toggleChildren(this, event)"
-                                                            draggable="true"><i class="drag-handle">⠿</i><i
-                                                                class="status">•</i><span class="node-text"
-                                                                contenteditable="true">고객이 이미 가지고 있는 최상의 잠재력을 깨우는 정교한
-                                                                설계자.</span>
-                                                            <div class="branch">
-                                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                                        class="status">•</i><span class="node-text"
-                                                                        contenteditable="true">Harmonized Design (조화로운
-                                                                        설계)</span>
-                                                                    <div class="btn-group"><span
-                                                                            class="action-btn add-btn"
-                                                                            onclick="addNewNode(this, event)">+</span><span
-                                                                            class="action-btn del-btn"
-                                                                            onclick="deleteNode(this, event)">-</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="sub-nodes">
-                                                                    <div class="branch">
-                                                                        <div class="node"
-                                                                            onclick="toggleChildren(this, event)"
-                                                                            draggable="true"><i
-                                                                                class="drag-handle">⠿</i><i
-                                                                                class="status">•</i><span
-                                                                                class="node-text"
-                                                                                contenteditable="true">기술과 인체가 가장 완벽하게
-                                                                                만나는 지점을 찾아내어, 최상의
-                                                                                컨디션을 유지하는 라이프스타일을 완성함.</span>
-                                                                            <div class="btn-group"><span
-                                                                                    class="action-btn add-btn"
-                                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                                    class="action-btn del-btn"
-                                                                                    onclick="deleteNode(this, event)">-</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">고객이 이미 가지고 있는 최상의 잠재력을 깨우는 정교한 설계자.</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="branch">
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">Harmonized Design (조화로운 설계)</span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                                </div>
+                                                <div class="sub-nodes">
                                                     <div class="branch">
-                                                        <div class="node" onclick="toggleChildren(this, event)"
-                                                            draggable="true"><i class="drag-handle">⠿</i><i
-                                                                class="status">•</i><span class="node-text"
-                                                                contenteditable="true">ACTS38의 슬로건 :&nbsp;브랜드가 고객에게 전달하는
-                                                                최종적인 메시지와
-                                                                감동</span>
-                                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                    class="action-btn del-btn"
-                                                                    onclick="deleteNode(this, event)">-</span></div>
-                                                        </div>
-                                                        <div class="sub-nodes">
-                                                            <div class="branch">
-                                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                                        class="status">•</i><span class="node-text"
-                                                                        contenteditable="true"><b
-                                                                            data-path-to-node="12,0,0"
-                                                                            data-index-in-node="0">Main
-                                                                            Slogan</b>&nbsp;</span>
-                                                                    <div class="btn-group"><span
-                                                                            class="action-btn add-btn"
-                                                                            onclick="addNewNode(this, event)">+</span><span
-                                                                            class="action-btn del-btn"
-                                                                            onclick="deleteNode(this, event)">-</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="sub-nodes">
-                                                                    <div class="branch">
-                                                                        <div class="node"
-                                                                            onclick="toggleChildren(this, event)"
-                                                                            draggable="true"><i
-                                                                                class="drag-handle">⠿</i><i
-                                                                                class="status">•</i><span
-                                                                                class="node-text"
-                                                                                contenteditable="true">"진정한 아름다움은 당신의
-                                                                                미소입니다."</span>
-                                                                            <div class="btn-group"><span
-                                                                                    class="action-btn add-btn"
-                                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                                    class="action-btn del-btn"
-                                                                                    onclick="deleteNode(this, event)">-</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="branch">
-                                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                                        class="status">•</i><span class="node-text"
-                                                                        contenteditable="true">Sub Slogan</span>
-                                                                    <div class="btn-group"><span
-                                                                            class="action-btn add-btn"
-                                                                            onclick="addNewNode(this, event)">+</span><span
-                                                                            class="action-btn del-btn"
-                                                                            onclick="deleteNode(this, event)">-</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="sub-nodes">
-                                                                    <div class="branch">
-                                                                        <div class="node"
-                                                                            onclick="toggleChildren(this, event)"
-                                                                            draggable="true"><i
-                                                                                class="drag-handle">⠿</i><i
-                                                                                class="status">•</i><span
-                                                                                class="node-text"
-                                                                                contenteditable="true">항상 여유와 미소를 잃지
-                                                                                않도록, 보이지 않는 곳에서 당신을
-                                                                                수호하는 조용하고 강력한 기술력.</span>
-                                                                            <div class="btn-group"><span
-                                                                                    class="action-btn add-btn"
-                                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                                    class="action-btn del-btn"
-                                                                                    onclick="deleteNode(this, event)">-</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">기술과 몸이 가장 완벽하게 만나는 지점을 찾아내어, 최상의 컨디션을 유지하는 라이프스타일을 완성함.</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="branch">
+                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">ACTS38의 슬로건 : 브랜드가 고객에게 전달하는 최종적인 메시지와 감동</span>
+                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                        </div>
+                                        <div class="sub-nodes">
+                                            <div class="branch">
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true"><b>Main Slogan</b></span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                                </div>
+                                                <div class="sub-nodes">
                                                     <div class="branch">
-                                                        <div class="node" onclick="toggleChildren(this, event)"
-                                                            draggable="true"><i class="drag-handle">⠿</i><i
-                                                                class="status">•</i><span class="node-text"
-                                                                contenteditable="true">ACTS38의 지향점</span>
-                                                            <div class="btn-group"><span class="action-btn add-btn"
-                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                    class="action-btn del-btn"
-                                                                    onclick="deleteNode(this, event)">-</span></div>
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">"진정한 아름다움은 당신의 미소입니다."</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                         </div>
-                                                        <div class="sub-nodes">
-                                                            <div class="branch">
-                                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                                        class="status">•</i><span class="node-text"
-                                                                        contenteditable="true">Silence Etiquette (싸이런스
-                                                                        에티켓)</span>
-                                                                    <div class="btn-group"><span
-                                                                            class="action-btn add-btn"
-                                                                            onclick="addNewNode(this, event)">+</span><span
-                                                                            class="action-btn del-btn"
-                                                                            onclick="deleteNode(this, event)">-</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="sub-nodes">
-                                                                    <div class="branch">
-                                                                        <div class="node"
-                                                                            onclick="toggleChildren(this, event)"
-                                                                            draggable="true"><i
-                                                                                class="drag-handle">⠿</i><i
-                                                                                class="status">•</i><span
-                                                                                class="node-text"
-                                                                                contenteditable="true">진정한 전문가는 자신을 드러내지
-                                                                                않습니다. 냄새, 자극 등
-                                                                                모든 번거로움을 제거한 절제된 프리미엄.</span>
-                                                                            <div class="btn-group"><span
-                                                                                    class="action-btn add-btn"
-                                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                                    class="action-btn del-btn"
-                                                                                    onclick="deleteNode(this, event)">-</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="branch">
-                                                                <div class="node" onclick="toggleChildren(this, event)"
-                                                                    draggable="true"><i class="drag-handle">⠿</i><i
-                                                                        class="status">•</i><span class="node-text"
-                                                                        contenteditable="true">Private Performance (프라이빗
-                                                                        퍼포먼스)</span>
-                                                                    <div class="btn-group"><span
-                                                                            class="action-btn add-btn"
-                                                                            onclick="addNewNode(this, event)">+</span><span
-                                                                            class="action-btn del-btn"
-                                                                            onclick="deleteNode(this, event)">-</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="sub-nodes">
-                                                                    <div class="branch">
-                                                                        <div class="node"
-                                                                            onclick="toggleChildren(this, event)"
-                                                                            draggable="true"><i
-                                                                                class="drag-handle">⠿</i><i
-                                                                                class="status">•</i><span
-                                                                                class="node-text"
-                                                                                contenteditable="true">대중적인 과시보다, 확실한
-                                                                                변화를 당신만이 체감할 수 있는
-                                                                                전문가적 가치를 지향.</span>
-                                                                            <div class="btn-group"><span
-                                                                                    class="action-btn add-btn"
-                                                                                    onclick="addNewNode(this, event)">+</span><span
-                                                                                    class="action-btn del-btn"
-                                                                                    onclick="deleteNode(this, event)">-</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="branch">
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">Sub Slogan</span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                                </div>
+                                                <div class="sub-nodes">
+                                                    <div class="branch">
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">항상 여유와 미소를 잃지 않도록, 보이지 않는 곳에서 당신을 수호하는 조용하고 강력한 기술력.</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="branch">
+                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">ACTS38의 지향점</span>
+                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                        </div>
+                                        <div class="sub-nodes">
+                                            <div class="branch">
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">Silence Etiquette (싸이런스 에티켓)</span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                                </div>
+                                                <div class="sub-nodes">
+                                                    <div class="branch">
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">진정한 전문가는 자신을 드러내지 않습니다. 냄새, 자극 등 모든 번거로움을 제거한 절제된 프리미엄.</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="branch">
+                                                <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">Private Performance (프라이빗 퍼포먼스)</span>
+                                                    <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
+                                                </div>
+                                                <div class="sub-nodes">
+                                                    <div class="branch">
+                                                        <div class="node" onclick="toggleChildren(this, event)" draggable="true"><i class="drag-handle">⠿</i><i class="status">•</i><span class="node-text" contenteditable="true">대중적인 과시보다, 확실한 변화를 당신만이 체감할 수 있는 전문가적 가치를 지향.</span>
+                                                            <div class="btn-group"><span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -830,6 +630,8 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
                             <script>
                                 // 🔐 보안 로직
