@@ -4,106 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACTS38 Vision 2030 : Project Viewer</title>
-
-    <!-- Pretendard Font -->
-    <link rel="stylesheet" as="style" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-
+    <title>ACTS38 Vision 2030 - Viewer</title>
     <style>
-        :root {
-            --bg-color: #030712;
-            --card-bg: rgba(17, 24, 39, 0.7);
-            --text-main: #f3f4f6;
-            --text-dim: #9ca3af;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-green: #10b981;
-            --accent-orange: #f59e0b;
-            --line-color: rgba(75, 85, 99, 0.3);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        :root {
+            --bg-color: #05070a;
+            --accent-blue: #00d2ff;
+            --accent-orange: #ff9d00;
+            --accent-green: #00ff88;
+            --text-main: #e0e0e0;
+            --text-dim: #888;
+            --line-color: rgba(255, 255, 255, 0.15);
+            --node-bg: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(20, 25, 35, 0.8);
+            --highlight-bg: rgba(255, 157, 0, 0.3);
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            min-width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
         }
 
-        /* 🌌 배경 애니메이션 */
-        .bg-glow {
+        .grid-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05), transparent 70%);
+            background-image:
+                radial-gradient(circle at 50% 50%, #101520 0%, transparent 80%),
+                linear-gradient(var(--line-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
+            background-size: 100% 100%, 50px 50px, 50px 50px;
             z-index: -1;
+            opacity: 0.5;
         }
 
-        /*  Header */
-        header {
+        /* 무한 캔버스 스타일 */
+        #viewport {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            padding: 20px 40px;
-            background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo-area h1 {
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            color: var(--text-main);
-            font-weight: 400;
-        }
-
-        /* 🔍 검색 바 */
-        .search-container {
-            position: fixed;
-            top: 100px;
-            left: 40px;
-            z-index: 90;
-            background: var(--card-bg);
-            padding: 10px 20px;
-            border-radius: 99px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .search-input {
-            background: transparent;
-            border: none;
-            color: white;
-            outline: none;
-            width: 200px;
-        }
-
-        /* 🗺️ 마인드맵 인터페이스 */
-        #viewport {
             width: 100vw;
             height: 100vh;
+            overflow: hidden;
             cursor: grab;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            z-index: 5;
         }
 
         #viewport:active {
@@ -111,24 +68,88 @@
         }
 
         #canvas {
+            position: absolute;
             transform-origin: 0 0;
-            transition: transform 0.1s ease-out;
-            padding: 2000px;
-            /* 여유 공간 */
+            will-change: transform;
         }
 
         .container {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 60px;
-            position: relative;
+            padding: 500px;
+            min-width: max-content;
         }
 
-        /* 🌲 트리 구조 */
+        .search-wrapper {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass-bg);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 5px;
+            outline: none;
+            width: 180px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .node {
+            cursor: pointer;
+            padding: 12px 25px;
+            border-radius: 8px;
+            background: var(--node-bg);
+            border: 1px solid var(--line-color);
+            white-space: normal;
+            word-break: keep-all;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            user-select: none;
+            max-width: 450px;
+            line-height: 1.5;
+        }
+
+        .node:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .node.highlight {
+            border-color: var(--accent-orange);
+            background: var(--highlight-bg);
+            box-shadow: 0 0 15px var(--accent-orange);
+        }
+
+        .node.root {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            border-left: 5px solid var(--accent-blue);
+            padding: 20px 40px;
+            background: var(--glass-bg);
+        }
+
         .tree {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 40px;
+            padding-left: 100px;
             position: relative;
         }
 
@@ -138,122 +159,74 @@
             position: relative;
         }
 
-        /* 연결선 가로 */
-        .branch::before {
-            content: "";
-            position: absolute;
-            left: -40px;
-            width: 40px;
-            height: 2px;
-            background: var(--line-color);
-        }
-
-        /* 연결선 세로 (부모 트리에서 내려오는 선) */
-        .tree::before {
-            content: "";
-            position: absolute;
-            left: -40px;
-            top: 12px;
-            bottom: 12px;
-            width: 2px;
-            background: var(--line-color);
-        }
-
-        .root-branch::before,
-        .root-branch>.tree::before {
-            display: none;
-        }
-
-        /* 💎 노드 스타일 */
-        .node {
-            background: var(--card-bg);
-            padding: 14px 24px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-width: 180px;
+        .sub-nodes {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            z-index: 2;
-            cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+            gap: 15px;
+            padding-left: 50px;
+            margin-left: 30px;
+            border-left: 2px solid var(--line-color);
+            transition: all 0.3s ease;
         }
 
-        .node:hover {
-            transform: translateX(5px);
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-        }
-
-        .node.root {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border: none;
-            padding: 20px 35px;
-        }
-
-        .node.root .node-text {
-            font-size: 1.4rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            color: white;
-        }
-
-        .node-text {
-            color: var(--text-main);
-            font-size: 0.95rem;
-            white-space: nowrap;
+        .sub-nodes.hidden {
+            display: none;
         }
 
         .status {
             font-style: normal;
-            font-size: 0.8rem;
         }
 
-        .status.completed {
+        .completed {
             color: var(--accent-green);
         }
 
-        /* 💡 하이라이트 효과 */
-        .highlight {
-            border-color: var(--accent-orange) !important;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+        .pending {
+            color: var(--text-dim);
         }
 
-        .hidden {
-            display: none;
+        .branch::before {
+            content: "";
+            position: absolute;
+            left: -100px;
+            width: 100px;
+            height: 2px;
+            background: var(--line-color);
+            z-index: -1;
         }
 
-        /* 📱 반응형 */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
+        .header {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            font-family: 'Pretendard', sans-serif;
+            z-index: 100;
+        }
 
-            .search-container {
-                left: 20px;
-                top: 80px;
-            }
+        .header h2 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
 
-            .node {
-                min-width: 140px;
-                padding: 10px 15px;
-            }
+        /* 뷰어 전용: 편집 버튼 미표시 */
+        .btn-group,
+        .drag-handle {
+            display: none !important;
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-glow"></div>
+    <div class="grid-bg"></div>
 
-    <header>
-        <div class="logo-area">
-            <h1>ACTS38 Vision 2030</h1>
-        </div>
-    </header>
+    <div class="header">
+        <h2>ACTS38 Vision 2030 : Strategic Viewer</h2>
+    </div>
 
-    <div class="search-container">
+    <div class="search-wrapper">
+        <span style="font-size: 14px;">🔍</span>
         <input type="text" class="search-input" placeholder="전략 검색..." onkeyup="searchNodes(this.value)">
     </div>
 
@@ -330,7 +303,8 @@
                                                     <div class="node">
                                                         <i class="status">•</i>
                                                         <span class="node-text">복원된 기초 위에서 일상과 퍼포먼스를 한없이 확장하도록 기술적으로
-                                                            뒷받침하는 것. (기술적 한계를 넘어서는 전문적 Body&Mind Total Support)</span>
+                                                            뒷받침하는 것. (기술적 한계를 넘어서는 전문적 Body&amp;Mind Total
+                                                            Support)</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -367,7 +341,7 @@
                                                 <div class="branch">
                                                     <div class="node">
                                                         <i class="status">•</i>
-                                                        <span class="node-text">기술과 인체가 가장 완벽하게 만나는 지점을 찾아내어, 최상의 컨디션을
+                                                        <span class="node-text">기술과 몸이 가장 완벽하게 만나는 지점을 찾아내어, 최상의 컨디션을
                                                             유지하는 라이프스타일을 완성함.</span>
                                                     </div>
                                                 </div>
@@ -378,7 +352,7 @@
                                 <div class="branch">
                                     <div class="node" onclick="toggleChildren(this)">
                                         <i class="status">•</i>
-                                        <span class="node-text">ACTS38의 슬로건</span>
+                                        <span class="node-text">ACTS38의 슬로건 : 브랜드가 고객에게 전달하는 최종적인 메시지와 감동</span>
                                     </div>
                                     <div class="sub-nodes">
                                         <div class="branch">
@@ -456,93 +430,92 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        window.addEventListener('load', () => {
-            initPanAndZoom();
-        });
-
-        function toggleChildren(el) {
-            const branch = el.parentElement;
-            const nextSub = branch.querySelector(':scope > .sub-nodes');
-            if (nextSub) nextSub.classList.toggle('hidden');
-        }
-
-        function searchNodes(query) {
-            const nodes = document.querySelectorAll('.node');
-            const term = query.toLowerCase();
-
-            nodes.forEach(node => {
-                const text = node.querySelector('.node-text').innerText.toLowerCase();
-                if (term !== "" && text.includes(term)) {
-                    node.classList.add('highlight');
-                    let parent = node.parentElement.closest('.sub-nodes');
-                    while (parent) {
-                        parent.classList.remove('hidden');
-                        parent = parent.parentElement.closest('.sub-nodes');
-                    }
-                } else {
-                    node.classList.remove('highlight');
-                }
+        <script>
+            window.addEventListener('load', () => {
+                initPanAndZoom();
             });
-        }
 
-        // 🔍 무한 캔버스 (Pan & Zoom) 엔진
-        function initPanAndZoom() {
-            const viewport = document.getElementById('viewport');
-            const canvas = document.getElementById('canvas');
-
-            let scale = 1;
-            let translateX = 0;
-            let translateY = 0;
-            let isPanning = false;
-            let startX, startY;
-
-            // 초기 위치 세팅
-            translateX = window.innerWidth / 4;
-            translateY = window.innerHeight / 4;
-            updateTransform();
-
-            function updateTransform() {
-                canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            function toggleChildren(el) {
+                const branch = el.parentElement;
+                const nextSub = branch.querySelector(':scope > .sub-nodes');
+                if (nextSub) nextSub.classList.toggle('hidden');
             }
 
-            window.addEventListener('wheel', (e) => {
-                const zoomSpeed = 0.001;
-                const delta = -e.deltaY;
-                const oldScale = scale;
-                scale += delta * zoomSpeed;
-                scale = Math.min(Math.max(0.1, scale), 3);
+            function searchNodes(query) {
+                const nodes = document.querySelectorAll('.node');
+                const term = query.toLowerCase();
 
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
+                nodes.forEach(node => {
+                    const text = node.querySelector('.node-text').innerText.toLowerCase();
+                    if (term !== "" && text.includes(term)) {
+                        node.classList.add('highlight');
+                        let parent = node.parentElement.closest('.sub-nodes');
+                        while (parent) {
+                            parent.classList.remove('hidden');
+                            parent = parent.parentElement.closest('.sub-nodes');
+                        }
+                    } else {
+                        node.classList.remove('highlight');
+                    }
+                });
+            }
 
-                translateX -= (mouseX - translateX) * (scale / oldScale - 1);
-                translateY -= (mouseY - translateY) * (scale / oldScale - 1);
+            // 🔍 무한 캔버스 (Pan & Zoom) 엔진
+            function initPanAndZoom() {
+                const viewport = document.getElementById('viewport');
+                const canvas = document.getElementById('canvas');
 
+                let scale = 1;
+                let translateX = 0;
+                let translateY = 0;
+                let isPanning = false;
+                let startX, startY;
+
+                // 초기 위치 세팅
+                translateX = window.innerWidth / 4;
+                translateY = window.innerHeight / 4;
                 updateTransform();
-            }, { passive: false });
 
-            viewport.addEventListener('mousedown', (e) => {
-                if (e.target.closest('.node')) return;
-                isPanning = true;
-                startX = e.clientX - translateX;
-                startY = e.clientY - translateY;
-            });
+                function updateTransform() {
+                    canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                }
 
-            window.addEventListener('mousemove', (e) => {
-                if (!isPanning) return;
-                translateX = e.clientX - startX;
-                translateY = e.clientY - startY;
-                updateTransform();
-            });
+                window.addEventListener('wheel', (e) => {
+                    const zoomSpeed = 0.001;
+                    const delta = -e.deltaY;
+                    const oldScale = scale;
+                    scale += delta * zoomSpeed;
+                    scale = Math.min(Math.max(0.1, scale), 3);
 
-            window.addEventListener('mouseup', () => {
-                isPanning = false;
-            });
-        }
-    </script>
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+
+                    translateX -= (mouseX - translateX) * (scale / oldScale - 1);
+                    translateY -= (mouseY - translateY) * (scale / oldScale - 1);
+
+                    updateTransform();
+                }, { passive: false });
+
+                viewport.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.node')) return;
+                    isPanning = true;
+                    startX = e.clientX - translateX;
+                    startY = e.clientY - translateY;
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isPanning) return;
+                    translateX = e.clientX - startX;
+                    translateY = e.clientY - startY;
+                    updateTransform();
+                });
+
+                window.addEventListener('mouseup', () => {
+                    isPanning = false;
+                });
+            }
+        </script>
 </body>
 
 </html>
