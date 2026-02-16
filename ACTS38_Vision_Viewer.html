@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>ACTS38 Vision 2030 Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.14.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.14.4"></script>
+  <style>
+    body { font-family: 'Malgun Gothic', sans-serif; background-color: #0d1117; color: #ffffff; margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    #header { padding: 10px 20px; background: #161b22; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    h1 { margin: 0; color: #58a6ff; font-size: 18px; font-weight: normal; }
+    #mindmap-container { flex: 1; width: 100%; height: 100%; position: relative; }
+    #mindmap { width: 100%; height: 100%; }
+
+    /* 기본 설정: 흰색, 6px, 볼드 제거 */
+    .markmap div { 
+      font-size: 6px !important; 
+      color: #ffffff !important; 
+      font-weight: normal !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      /* 한 줄 유지 및 밑줄 길이 일치 */
+      white-space: nowrap !important; 
+      display: inline-block !important; 
+      padding-bottom: 7px !important; /* 텍스트-밑줄 간격 7px */
+      cursor: pointer;
+    }
+
+    /* 수달대표의 판단에 의한 완료 상태(노란색) */
+    .completed { color: #ffea00 !important; }
+
+    .markmap-link { stroke: #444c56; stroke-width: 1px; }
+    .markmap-node-circle { fill: #58a6ff; r: 1.5px; }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <h1>🚀 ACTS38 Vision 2030 Master Plan</h1>
+    <div style="font-size: 11px; color: #8b949e;">v4.2 | User-Driven Decision System</div>
+  </div>
+  <div id="mindmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script>
+    const markdown = `
+# ACTS38 Vision 2030
+## 조직 및 인력
+- ■ 수달 (최고의사결정권자)
+- ■ 만두 (전략기획실장 CSO)
+- ■ 랜도 (수석보좌관 CTO)
+## 만두 실장의 업무 원칙
+- ■ 브랜드 세계관 수호 (공식 명칭 엄수)
+- ■ 라이프사이클 점유 (바디/스킨/향수 시너지)
+- ■ 원료 중심 의사결정 (기술 권력 확보)
+- ■ 성과주의 기강 (상벌 체계 확립)
+## 핵심 전략 기둥
+### 1. 원료의 권력화
+- □ Global Standard 구축 (K-약전 등록)
+- □ ACTS38 Inside 인증 체계 수립
+- ■ 독점 원료 공급망 지배력 확보
+### 2. 체험형 오프라인 유통
+- □ ACTS38 Care Studio 전국 확산
+- □ 전지훈련 거점 도시 점령 (진주/남해/제주 등)
+- □ 현장 전문가 케어 시스템 구축
+### 3. 3대 제품 라인업
+- □ 바디케어: Gel라인(Miracle Gel, Boswellia Gel, 편안한겔), MicroNid
+- □ 스킨케어: 고기능성 더마
+- □ 향수: 테라피 시그니처
+## 시스템 및 데이터
+- ■ 자동 백업: 99_Back_Up (운영 중)
+- □ 데이터 자산화: 고객 신체 데이터 구축
+- ■ 버전 관리: v4.2 적용
+    `;
+
+    window.onload = () => {
+      try {
+        const { Markmap, Transformer } = window.markmap;
+        const transformer = new Transformer();
+        const { root } = transformer.transform(markdown);
+        
+        const mm = Markmap.create('#mindmap', {
+          zoom: true,
+          pan: true,
+          duration: 0,
+          initialExpandLevel: 2
+        }, root);
+
+        const refreshNodes = () => {
+          document.querySelectorAll('.markmap div').forEach(el => {
+            // 텍스트 내용에 따른 초기 스타일링
+            if (el.textContent.includes('■')) {
+              el.classList.add('completed');
+            } else {
+              el.classList.remove('completed');
+            }
+
+            // 클릭 이벤트: 수달대표의 판단을 시스템에 반영
+            if (!el.dataset.handled) {
+              el.onclick = (e) => {
+                e.stopPropagation();
+                if (el.textContent.includes('□')) {
+                  el.textContent = el.textContent.replace('□', '■');
+                } else if (el.textContent.includes('■')) {
+                  el.textContent = el.textContent.replace('■', '□');
+                }
+                // 클릭 직후 즉시 클래스 갱신은 setInterval에서 처리됨
+              };
+              el.dataset.handled = "true";
+            }
+          });
+        };
+
+        setInterval(refreshNodes, 300);
+        
+      } catch (err) {
+        console.error("실행 오류 보고:", err);
+      }
+    };
+  </script>
+</body>
+</html>
