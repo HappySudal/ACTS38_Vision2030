@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACTS38 ULTIMATE COMMAND CENTER</title>
+    <title>ACTS38 Vision 2030 Strategic Mindmap</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
@@ -18,7 +18,7 @@
             --text-dim: #888;
             --line-color: rgba(255, 255, 255, 0.15);
             --node-bg: rgba(255, 255, 255, 0.05);
-            --glass-bg: rgba(20, 25, 35, 0.9);
+            --glass-bg: rgba(20, 25, 35, 0.8);
         }
 
         body {
@@ -27,15 +27,16 @@
             font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
+            overflow: auto;
             min-width: 100vw;
             min-height: 100vh;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            overflow: auto;
             scroll-behavior: smooth;
         }
 
+        /* 배경 효과 */
         .grid-bg {
             position: fixed;
             top: 0;
@@ -54,11 +55,12 @@
         .container {
             display: flex;
             align-items: center;
-            padding: 200px;
+            padding: 100px;
             min-width: max-content;
         }
 
-        .node-wrapper {
+        /* 노드 공통 스타일 */
+        .node-group {
             display: flex;
             align-items: center;
             position: relative;
@@ -66,113 +68,114 @@
 
         .node {
             cursor: pointer;
-            padding: 15px 30px;
-            border-radius: 12px;
+            padding: 12px 24px;
+            border-radius: 8px;
             background: var(--node-bg);
             border: 1px solid var(--line-color);
-            backdrop-filter: blur(15px);
+            white-space: normal;
+            word-break: keep-all;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 15px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 500px;
-            position: relative;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            user-select: none;
+            max-width: 450px;
+            line-height: 1.5;
             z-index: 2;
         }
 
         .node:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
             border-color: var(--accent-blue);
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
         }
 
         .node.root {
             font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            border-left: 6px solid var(--accent-blue);
+            border-left: 4px solid var(--accent-blue);
+            padding: 20px 40px;
             background: var(--glass-bg);
-            padding: 30px 60px;
         }
 
-        .node-text {
-            outline: none;
-            line-height: 1.6;
-            word-break: keep-all;
-        }
-
-        .node-text[contenteditable="true"] {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0 5px;
-            border-radius: 4px;
-        }
-
-        .add-btn {
-            width: 30px;
-            height: 30px;
-            background: var(--accent-blue);
-            color: #000;
-            border-radius: 50%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-left: 20px;
-            transition: 0.3s;
-            cursor: pointer;
-            z-index: 3;
-            box-shadow: 0 0 15px var(--accent-blue);
-        }
-
-        .children-container {
+        /* 트리 레이아웃 */
+        .tree {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 40px;
             padding-left: 100px;
             position: relative;
-            margin-left: 50px;
         }
 
-        .children-container::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--line-color);
+        .branch {
+            display: flex;
+            align-items: center;
+            position: relative;
         }
 
-        .node-wrapper::before {
-            content: "";
-            position: absolute;
-            left: -50px;
-            width: 50px;
-            height: 2px;
-            background: var(--line-color);
+        .sub-nodes {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-left: 50px;
+            margin-left: 30px;
+            border-left: 2px solid var(--line-color);
+            transition: all 0.3s ease;
         }
 
-        .status-icon {
+        .hidden {
+            display: none !important;
+        }
+
+        /* 상태 기호 */
+        .status {
+            font-style: normal;
             font-weight: bold;
-            flex-shrink: 0;
-            font-size: 1.1em;
         }
 
-        .blue {
-            color: var(--accent-blue);
-        }
-
-        .green {
+        .completed {
             color: var(--accent-green);
         }
 
-        .orange {
-            color: var(--accent-orange);
+        .pending {
+            color: var(--text-dim);
         }
 
-        .red {
-            color: var(--accent-red);
+        .node-detail {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-left: 5px;
+        }
+
+        /* 선 연결 */
+        .branch::before {
+            content: "";
+            position: absolute;
+            left: -100px;
+            width: 100px;
+            height: 2px;
+            background: var(--line-color);
+            z-index: -1;
+        }
+
+        /* 개별 컬러링 */
+        .b-people {
+            border-left: 3px solid var(--accent-orange);
+        }
+
+        .b-principle {
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .b-strategy {
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .b-system {
+            border-left: 3px solid var(--accent-green);
         }
 
         .header {
@@ -185,169 +188,144 @@
 
         .header h2 {
             margin: 0;
-            font-size: 20px;
+            font-size: 16px;
             color: var(--accent-blue);
-            letter-spacing: 4px;
+            cursor: pointer;
         }
 
-        .hint {
-            font-size: 12px;
-            color: var(--text-dim);
-            margin-top: 10px;
-        }
-
-        /* 인증 모달 시스템 */
-        #auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+        /* 관리자 기능용 */
+        .add-btn {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-blue);
+            color: #000;
+            border-radius: 50%;
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
-            backdrop-filter: blur(10px);
-        }
-
-        .modal-content {
-            background: var(--glass-bg);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--accent-blue);
-            text-align: center;
-            width: 350px;
-            box-shadow: 0 0 50px rgba(0, 210, 255, 0.2);
-        }
-
-        .modal-content h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent-blue);
-            margin-bottom: 20px;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--line-color);
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            text-align: center;
-            font-size: 18px;
-            margin-bottom: 20px;
-            outline: none;
-        }
-
-        .modal-content button {
-            background: var(--accent-blue);
-            color: #000;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
             font-weight: bold;
+            margin-left: 15px;
             cursor: pointer;
-            width: 100%;
+            transition: 0.3s;
         }
 
-        .hidden {
-            display: none;
+        .admin-active .add-btn {
+            display: flex;
         }
 
-        /* 알림 뱃지 */
-        .admin-badge {
+        .admin-active .node-text {
+            outline: 1px dashed rgba(0, 210, 255, 0.3);
+            padding: 0 4px;
+        }
+
+        #admin-badge {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
+            padding: 8px 16px;
             background: var(--accent-green);
             color: #000;
-            padding: 10px 20px;
-            border-radius: 30px;
+            border-radius: 20px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
             display: none;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-            z-index: 500;
         }
     </style>
 </head>
 
 <body>
-
     <div class="grid-bg"></div>
 
     <div class="header">
-        <h2>ACTS38 COMMAND HUB 2030</h2>
-        <div class="hint">모드: <span id="mode-text">READ-ONLY</span> | 중앙 노드 클릭하여 인증</div>
-    </div>
-
-    <!-- 인증 모달 -->
-    <div id="auth-modal">
-        <div class="modal-content">
-            <h3>SECURE AUTH</h3>
-            <input type="password" id="pass-input" placeholder="ACCESS CODE">
-            <button onclick="checkAuth()">ACTIVATE</button>
+        <h2 onclick="askAuth()">ACTS38 Vision 2030 : Strategic Command</h2>
+        <div id="status-hint" style="font-size: 10px; color: var(--text-dim); margin-top: 5px;">Click title to Auth
         </div>
     </div>
 
-    <div class="admin-badge" id="admin-badge">ADMIN AUTHORIZED (COMMANDER)</div>
+    <div id="admin-badge">ADMIN MODE</div>
 
     <div class="container">
-        <!-- ROOT NODE -->
-        <div class="node-wrapper">
-            <div class="node root" onclick="showAuthModal(event)">
-                <span class="status-icon blue">#</span>
-                <span class="node-text">ACTS38 Vision 2030</span>
+        <!-- Root node -->
+        <div class="branch">
+            <div class="node-group">
+                <div class="node root" onclick="toggleLocal(this)">
+                    <span class="node-text">ACTS38 Vision 2030</span>
+                </div>
+                <div class="add-btn" onclick="addNew(this)">+</div>
             </div>
-            <div class="add-btn" onclick="addNode(this, event)">+</div>
 
-            <div class="children-container">
+            <div class="tree">
                 <!-- Branch 1 -->
-                <div class="node-wrapper">
-                    <div class="node" onclick="toggleNode(this, event)"
-                        style="border-left: 3px solid var(--accent-orange);">
-                        <span class="status-icon orange">■</span>
-                        <span class="node-text">조직 및 인력</span>
+                <div class="branch">
+                    <div class="node-group">
+                        <div class="node b-people" onclick="toggleLocal(this)">
+                            <span class="node-text">조직 및 인력</span>
+                        </div>
+                        <div class="add-btn" onclick="addNew(this)">+</div>
                     </div>
-                    <div class="add-btn" onclick="addNode(this, event)">+</div>
-                    <div class="children-container">
-                        <div class="node-wrapper">
-                            <div class="node"><span class="status-icon green">■</span><span class="node-text">수달 대표
-                                    (CEO)</span></div>
+                    <div class="sub-nodes">
+                        <div class="node-group">
+                            <div class="node"><span class="status completed">■</span><span class="node-text">수달 대표
+                                    (최고의사결정권자)</span></div>
                         </div>
-                        <div class="node-wrapper">
-                            <div class="node"><span class="status-icon green">■</span><span class="node-text">만두 실장
-                                    (CSO)</span></div>
+                        <div class="node-group">
+                            <div class="node"><span class="status completed">■</span><span class="node-text">만두 실장
+                                    (전략기획실장 CSO)</span></div>
                         </div>
-                        <div class="node-wrapper">
-                            <div class="node"><span class="status-icon green">■</span><span class="node-text">랜도 보좌관
-                                    (Tech)</span></div>
+                        <div class="node-group">
+                            <div class="node"><span class="status completed">■</span><span class="node-text">랜도 보좌관
+                                    (수석보좌관 Tech)</span></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Branch 2 -->
-                <div class="node-wrapper">
-                    <div class="node" onclick="toggleNode(this, event)"
-                        style="border-left: 3px solid var(--accent-blue);">
-                        <span class="status-icon blue">■</span>
-                        <span class="node-text">ACTS38의 철학</span>
+                <div class="branch">
+                    <div class="node-group">
+                        <div class="node b-principle" onclick="toggleLocal(this)">
+                            <span class="node-text">ACTS38의 철학</span>
+                        </div>
+                        <div class="add-btn" onclick="addNew(this)">+</div>
                     </div>
-                    <div class="add-btn" onclick="addNode(this, event)">+</div>
-                    <div class="children-container hidden">
-                        <div class="node-wrapper">
-                            <div class="node" onclick="toggleNode(this, event)"><span
-                                    class="status-icon blue">•</span><span class="node-text">브랜드 세계관 수호</span></div>
-                            <div class="add-btn" onclick="addNode(this, event)">+</div>
-                            <div class="children-container hidden">
-                                <div class="node-wrapper">
-                                    <div class="node"><span class="node-text">Restore (복원)</span></div>
+                    <div class="sub-nodes">
+                        <div class="branch">
+                            <div class="node-group">
+                                <div class="node" onclick="toggleLocal(this)"><span
+                                        class="status completed">■</span><span class="node-text">브랜드 세계관 수호</span></div>
+                                <div class="add-btn" onclick="addNew(this)">+</div>
+                            </div>
+                            <div class="sub-nodes hidden">
+                                <div class="node-group">
+                                    <div class="node"><span class="node-text">Restore (기능의 복원)</span></div>
                                 </div>
-                                <div class="node-wrapper">
-                                    <div class="node"><span class="node-text">Limitless (확장)</span></div>
+                                <div class="node-group">
+                                    <div class="node"><span class="node-text">Limitless (가능성의 확장)</span></div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="node-group">
+                            <div class="node"><span class="status completed">■</span><span class="node-text">라이프사이클
+                                    점유</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branch 3 -->
+                <div class="branch">
+                    <div class="node-group">
+                        <div class="node b-strategy" onclick="toggleLocal(this)">
+                            <span class="node-text">핵심 전략 기둥</span>
+                        </div>
+                        <div class="add-btn" onclick="addNew(this)">+</div>
+                    </div>
+                    <div class="sub-nodes">
+                        <div class="node-group">
+                            <div class="node"><span class="status pending">□</span><span class="node-text">Global
+                                    Standard 구축</span></div>
+                        </div>
+                        <div class="node-group">
+                            <div class="node"><span class="status completed">■</span><span class="node-text">독점 원료 공급망
+                                    지배</span></div>
                         </div>
                     </div>
                 </div>
@@ -356,86 +334,70 @@
     </div>
 
     <script>
-        let isAuthorized = false;
+        let isEditing = false;
 
-        function showAuthModal(e) {
-            e.stopPropagation();
-            if (isAuthorized) {
-                toggleNode(e.currentTarget, e);
-                return;
+        function askAuth() {
+            const pw = prompt("보안 암호를 입력하세요:");
+            if (pw === "acts2030") {
+                isEditing = true;
+                document.body.classList.add('admin-active');
+                document.getElementById('admin-badge').style.display = 'block';
+                document.getElementById('status-hint').innerText = "ADMIN MODE ACTIVE";
+                document.querySelectorAll('.node-text').forEach(el => el.contentEditable = true);
+                alert("수달대표님 환영합니다. 편집 모드가 활성화되었습니다.");
             }
-            document.getElementById('auth-modal').style.display = 'flex';
-            document.getElementById('pass-input').focus();
         }
 
-        function checkAuth() {
-            const pass = document.getElementById('pass-input').value;
-            if (pass === "acts2030") {
-                isAuthorized = true;
-                document.getElementById('auth-modal').style.display = 'none';
-                document.getElementById('mode-text').innerText = "COMMANDER ACTIVE";
-                document.getElementById('mode-text').style.color = "var(--accent-green)";
-                document.getElementById('admin-badge').style.display = "block";
+        function toggleLocal(el) {
+            const nextTree = el.closest('.node-group').nextElementSibling;
+            if (nextTree && (nextTree.classList.contains('tree') || nextTree.classList.contains('sub-nodes'))) {
+                nextTree.classList.toggle('hidden');
+            }
+            event.stopPropagation();
+        }
 
-                // 모든 노드 편집 활성화
-                document.querySelectorAll('.node-text').forEach(t => t.contentEditable = true);
-                document.querySelectorAll('.add-btn').forEach(b => b.style.display = "flex");
+        function addNew(btn) {
+            if (!isEditing) return;
+            const group = btn.closest('.node-group');
+            let siblingTree = group.nextElementSibling;
+
+            if (!siblingTree || (!siblingTree.classList.contains('tree') && !siblingTree.classList.contains('sub-nodes'))) {
+                siblingTree = document.createElement('div');
+                siblingTree.className = group.parentElement.classList.contains('branch') && group.nextElementSibling === null ? 'sub-nodes' : 'tree';
+                group.after(siblingTree);
+            }
+            siblingTree.classList.remove('hidden');
+
+            const newNodeWrapper = document.createElement('div');
+            newNodeWrapper.className = siblingTree.classList.contains('tree') ? 'branch' : 'node-group';
+
+            if (siblingTree.classList.contains('tree')) {
+                newNodeWrapper.innerHTML = `
+                    <div class="node-group">
+                        <div class="node" onclick="toggleLocal(this)"><span class="node-text" contenteditable="true">새 항목...</span></div>
+                        <div class="add-btn" onclick="addNew(this)">+</div>
+                    </div>
+                `;
             } else {
-                alert("ACCESS DENIED");
-                document.getElementById('pass-input').value = "";
+                newNodeWrapper.innerHTML = `
+                    <div class="node"><span class="node-text" contenteditable="true">새 항목...</span></div>
+                `;
             }
+
+            siblingTree.appendChild(newNodeWrapper);
+            newNodeWrapper.querySelector('.node-text').focus();
+            event.stopPropagation();
         }
 
-        function toggleNode(el, e) {
-            e.stopPropagation();
-            const children = el.parentElement.querySelector(':scope > .children-container');
-            if (children) children.classList.toggle('hidden');
-        }
-
-        function addNode(btn, e) {
-            e.stopPropagation();
-            if (!isAuthorized) return;
-
-            const parent = btn.parentElement;
-            let container = parent.querySelector(':scope > .children-container');
-            if (!container) {
-                container = document.createElement('div');
-                container.className = 'children-container';
-                parent.appendChild(container);
-            }
-            container.classList.remove('hidden');
-
-            const newNode = document.createElement('div');
-            newNode.className = 'node-wrapper';
-            newNode.innerHTML = `
-                <div class="node" onclick="toggleNode(this, event)">
-                    <span class="status-icon">•</span>
-                    <span class="node-text" contenteditable="true" spellcheck="false">새로운 항목...</span>
-                </div>
-                <div class="add-btn" onclick="addNode(this, event)" style="display:flex;">+</div>
-            `;
-            container.appendChild(newNode);
-            newNode.querySelector('.node-text').focus();
-            document.execCommand('selectAll', false, null);
-        }
-
-        // 비밀번호 입력창 엔터키 대응
-        document.getElementById('pass-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkAuth();
-        });
-
-        // 전역 단축키
-        window.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && (e.key === 'L' || e.key === 'l')) {
+        // Enter 키 대응
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && e.target.classList.contains('node-text')) {
                 e.preventDefault();
-                showAuthModal({ stopPropagation: () => { } });
+                e.target.blur();
             }
         });
 
-        // 닫기
-        window.onclick = (e) => {
-            if (e.target.id === 'auth-modal') document.getElementById('auth-modal').style.display = 'none';
-        }
+        window.onload = () => { console.log("Strategic Map Ready."); };
     </script>
 </body>
 
