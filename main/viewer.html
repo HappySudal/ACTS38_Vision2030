@@ -461,42 +461,46 @@
                 });
             }
 
-            // 🔍 무한 캔버스 (Pan & Zoom) 엔진
+            // 🔍 무한 캔버스 (Pan & Zoom) 엔진 (터치 지원 업데이트)
             function initPanAndZoom() {
                 const viewport = document.getElementById('viewport');
                 const canvas = document.getElementById('canvas');
 
-                let scale = 1;
+                let scale = window.innerWidth < 768 ? 0.6 : 1;
                 let translateX = 0;
                 let translateY = 0;
                 let isPanning = false;
                 let startX, startY;
 
-                // 초기 위치 세팅
-                translateX = window.innerWidth / 4;
-                translateY = window.innerHeight / 4;
-                updateTransform();
+                // 초기 위치 설정 (정중앙 기반)
+                function centerView() {
+                    // .container의 padding이 500px이므로 root 노드는 (500, 500) 근처에 위치함
+                    translateX = window.innerWidth / 2 - 500;
+                    translateY = window.innerHeight / 2 - 500;
+                    updateTransform();
+                }
 
                 function updateTransform() {
                     canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
                 }
 
+                centerView();
+
+                // [확대/축소] 마우스 휠
                 window.addEventListener('wheel', (e) => {
                     const zoomSpeed = 0.001;
                     const delta = -e.deltaY;
                     const oldScale = scale;
-                    scale += delta * zoomSpeed;
-                    scale = Math.min(Math.max(0.1, scale), 3);
+                    scale = Math.min(Math.max(0.1, scale + delta * zoomSpeed), 3);
 
                     const mouseX = e.clientX;
                     const mouseY = e.clientY;
-
                     translateX -= (mouseX - translateX) * (scale / oldScale - 1);
                     translateY -= (mouseY - translateY) * (scale / oldScale - 1);
-
                     updateTransform();
                 }, { passive: false });
 
+                // [화면 이동] 마우스 드래그
                 viewport.addEventListener('mousedown', (e) => {
                     if (e.target.closest('.node')) return;
                     isPanning = true;
@@ -511,8 +515,55 @@
                     updateTransform();
                 });
 
-                window.addEventListener('mouseup', () => {
+                window.addEventListener('mouseup', () => isPanning = false);
+
+                // [모바일 터치 지원] 드래그 & 핀치 줌
+                let initialPinchDistance = null;
+
+                viewport.addEventListener('touchstart', (e) => {
+                    if (e.target.closest('.node')) return;
+                    if (e.touches.length === 1) {
+                        isPanning = true;
+                        startX = e.touches[0].clientX - translateX;
+                        startY = e.touches[0].clientY - translateY;
+                    } else if (e.touches.length === 2) {
+                        isPanning = false;
+                        initialPinchDistance = Math.hypot(
+                            e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY
+                        );
+                    }
+                }, { passive: false });
+
+                window.addEventListener('touchmove', (e) => {
+                    if (isPanning && e.touches.length === 1) {
+                        translateX = e.touches[0].clientX - startX;
+                        translateY = e.touches[0].clientY - startY;
+                        updateTransform();
+                        e.preventDefault();
+                    } else if (e.touches.length === 2 && initialPinchDistance !== null) {
+                        const currentDistance = Math.hypot(
+                            e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY
+                        );
+                        const pinchScale = currentDistance / initialPinchDistance;
+                        const oldScale = scale;
+                        scale = Math.min(Math.max(0.1, scale * pinchScale), 3);
+
+                        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                        translateX -= (centerX - translateX) * (scale / oldScale - 1);
+                        translateY -= (centerY - translateY) * (scale / oldScale - 1);
+
+                        updateTransform();
+                        initialPinchDistance = currentDistance;
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+
+                window.addEventListener('touchend', () => {
                     isPanning = false;
+                    initialPinchDistance = null;
                 });
             }
         </script>
