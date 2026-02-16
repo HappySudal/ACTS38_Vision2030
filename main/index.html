@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACTS38 Vision 2030 Strategic Mindmap</title>
+    <title>ACTS38 Dynamic Strategy Map</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
@@ -27,15 +27,15 @@
             font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            min-width: 100vw;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
+            overflow: auto;
+            scroll-behavior: smooth;
         }
 
-        /* 배경 효과 */
         .grid-bg {
             position: fixed;
             top: 0;
@@ -52,38 +52,37 @@
         }
 
         .container {
-            position: relative;
             display: flex;
             align-items: center;
-            padding: 50px;
+            padding: 100px;
+            min-width: max-content;
         }
 
-        /* 노드 공통 스타일 */
+        /* 노드 스타일 */
+        .node-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
         .node {
             cursor: pointer;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 8px;
             background: var(--node-bg);
             border: 1px solid var(--line-color);
-            white-space: normal;
-            /* 긴 문장 자동 줄바꿈 */
-            word-break: keep-all;
-            /* 단어 단위 줄바꿈으로 가독성 향상 */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            display: flex;
-            align-items: flex-start;
-            /* 텍스트가 여러 줄일 때 아이콘을 상단에 정렬 */
-            gap: 12px;
             backdrop-filter: blur(10px);
-            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             max-width: 450px;
-            /* 노드의 최대 너비를 제한하여 가독성 확보 */
-            line-height: 1.5;
+            position: relative;
+            z-index: 2;
         }
 
         .node:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
         }
@@ -93,109 +92,123 @@
             font-size: 20px;
             font-weight: 700;
             border-left: 4px solid var(--accent-blue);
-            padding: 20px 40px;
             background: var(--glass-bg);
+            padding: 20px 40px;
         }
 
-        /* 브랜치 레이아웃 */
-        .tree {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            padding-left: 100px;
-            position: relative;
+        /* 텍스트 편집 시스템 */
+        .node-text {
+            outline: none;
+            min-width: 50px;
+            line-height: 1.5;
+            word-break: keep-all;
         }
 
-        .branch {
+        .node-text[contenteditable="true"]:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 0 5px;
+        }
+
+        /* 추가 버튼 */
+        .add-btn {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-blue);
+            color: #000;
+            border-radius: 50%;
             display: flex;
+            justify-content: center;
             align-items: center;
-            position: relative;
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 15px;
+            opacity: 0;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 3;
+            box-shadow: 0 0 10px var(--accent-blue);
         }
 
-        /* 하위 노드 컨테이너 */
-        .sub-nodes {
+        .node-wrapper:hover .add-btn {
+            opacity: 1;
+        }
+
+        /* 트리 레이아웃 */
+        .children-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            padding-left: 50px;
-            margin-left: 30px;
-            border-left: 2px solid var(--line-color);
-            max-height: 1000px;
-            opacity: 1;
-            overflow: hidden;
-            transition: all 0.5s ease-in-out;
+            gap: 20px;
+            padding-left: 80px;
+            position: relative;
+            margin-left: 40px;
         }
 
-        .sub-nodes.hidden {
-            max-height: 0;
-            opacity: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-            pointer-events: none;
+        .children-container::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--line-color);
+        }
+
+        .node-wrapper::before {
+            content: "";
+            position: absolute;
+            left: -40px;
+            width: 40px;
+            height: 2px;
+            background: var(--line-color);
         }
 
         /* 상태 기호 */
-        .status {
+        .status-icon {
             font-style: normal;
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
-        .completed {
+        .blue {
+            color: var(--accent-blue);
+        }
+
+        .green {
             color: var(--accent-green);
         }
 
-        .pending {
-            color: var(--text-dim);
+        .orange {
+            color: var(--accent-orange);
         }
 
-        /* 노드 상세 텍스트 */
-        .node-detail {
-            font-size: 13px;
-            color: var(--text-dim);
-            margin-left: 5px;
+        .red {
+            color: var(--accent-red);
         }
 
-        /* 선 연결 (SVG로 구현하기엔 복잡하므로 CSS 가상요소로 간단히 처리) */
-        .branch::before {
-            content: "";
-            position: absolute;
-            left: -100px;
-            width: 100px;
-            height: 2px;
-            background: var(--line-color);
-            z-index: -1;
-        }
-
-        /* 개별 컬러링 */
-        .b-people {
-            border-left: 3px solid var(--accent-orange);
-        }
-
-        .b-principle {
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        .b-strategy {
-            border-left: 3px solid var(--accent-red);
-        }
-
-        .b-system {
-            border-left: 3px solid var(--accent-green);
-        }
-
-        /* 헤더 고정 정보 */
         .header {
-            position: absolute;
+            position: fixed;
             top: 40px;
             left: 40px;
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px;
+            z-index: 100;
         }
 
         .header h2 {
             margin: 0;
             font-size: 16px;
             color: var(--accent-blue);
-            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -205,117 +218,177 @@
     <div class="grid-bg"></div>
 
     <div class="header">
-        <h2>ACTS38 Vision 2030 : Strategic Command</h2>
+        <h2>ACTS38 Strategic Dynamic Hub</h2>
+        <div class="hint">텍스트 클릭 시 수정 가능 / + 버튼 클릭 시 하위 노드 추가</div>
     </div>
 
-    <div class="container">
-        <!-- Root Node -->
-        <div class="node root" onclick="toggleChildren('all')">
-            ACTS38 Vision 2030
-        </div>
-
-        <!-- First Level Tree -->
-        <div class="tree">
-
-            <!-- Branch 1: 조직 및 인력 -->
-            <div class="branch">
-                <div class="node b-people" onclick="toggleChildren('people')">
-                    조직 및 인력
-                </div>
-                <div id="people" class="sub-nodes">
-                    <div class="node"><i class="status completed">■</i> 수달 대표 <span
-                            class="node-detail">(최고의사결정권자)</span></div>
-                    <div class="node"><i class="status completed">■</i> 만두 실장 <span class="node-detail">(전략기획실장
-                            CSO)</span></div>
-                    <div class="node"><i class="status completed">■</i> 랜도 보좌관 <span class="node-detail">(수석보좌관
-                            Tech)</span></div>
-                </div>
+    <div class="container" id="mindmap-root">
+        <div class="node-wrapper">
+            <div class="node root" onclick="toggleVisibility(this)">
+                <span class="status-icon blue">#</span>
+                <span class="node-text" contenteditable="true" spellcheck="false">ACTS38 Vision 2030</span>
             </div>
+            <div class="add-btn" onclick="addNewChild(this)">+</div>
 
-            <!-- Branch 2: ACTS38의 철학 -->
-            <div class="branch">
-                <div class="node b-principle" onclick="toggleChildren('principles')">
-                    ACTS38의 철학
-                </div>
-                <div id="principles" class="sub-nodes">
-                    <div class="node" onclick="toggleChildren('worldview')">
-                        <i class="status completed">■</i> 브랜드 세계관 수호 <span class="node-detail">(공식 명칭 엄수)</span>
+            <div class="children-container">
+                <!-- 초기 고정 노드들은 템플릿 형태로 제공 -->
+                <div class="node-wrapper">
+                    <div class="node" onclick="toggleVisibility(this)"
+                        style="border-left: 3px solid var(--accent-orange);">
+                        <span class="status-icon orange">■</span>
+                        <span class="node-text" contenteditable="true" spellcheck="false">조직 및 인력</span>
                     </div>
-                    <!-- 하위 하위 노드 (대표님 승인 시 노출될 상세 내용 공간) -->
-                    <div id="worldview" class="sub-nodes hidden">
-                        <div class="node" onclick="toggleChildren('details-restore')">
-                            <i class="status">•</i> Restore (기능의 복원)
+                    <div class="add-btn" onclick="addNewChild(this)">+</div>
+                    <div class="children-container">
+                        <div class="node-wrapper">
+                            <div class="node"><span class="status-icon green">■</span><span class="node-text"
+                                    contenteditable="true">수달 대표 (최고의사결정권자)</span></div>
                         </div>
-                        <!-- Restore 하위 상세 컨텐츠 -->
-                        <div id="details-restore" class="sub-nodes hidden">
-                            <div class="node">본연의 기능을 가장 자연스럽고 온전한 상태로 회복</div>
-                            <div class="node">생체 리듬의 정상화 및 근본적 케어 시스템</div>
+                        <div class="node-wrapper">
+                            <div class="node"><span class="status-icon green">■</span><span class="node-text"
+                                    contenteditable="true">만두 실장 (전략기획실장 CSO)</span></div>
                         </div>
-
-                        <div class="node" onclick="toggleChildren('details-limitless')">
-                            <i class="status">•</i> Limitless (가능성의 확장)
+                        <div class="node-wrapper">
+                            <div class="node"><span class="status-icon green">■</span><span class="node-text"
+                                    contenteditable="true">랜도 보좌관 (수석보좌관 Tech)</span></div>
                         </div>
-                        <!-- Limitless 하위 상세 컨텐츠 -->
-                        <div id="details-limitless" class="sub-nodes hidden">
-                            <div class="node">복원된 기초 위에서 퍼포먼스의 무한한 확장</div>
-                            <div class="node">기술적 한계를 넘어서는 전문적 테크 서포트</div>
-                        </div>
-
-                        <div class="node"><i class="status">•</i> 지속 가능한 미소 "진정한 아름다움은 당신의 미소입니다."</div>
                     </div>
-                    <div class="node"><i class="status completed">■</i> 라이프사이클 점유 <span class="node-detail">(바디/스킨/향수
-                            시너지)</span></div>
-                    <div class="node"><i class="status completed">■</i> 원료 중심 의사결정 <span class="node-detail">(기술 권력
-                            확보)</span></div>
-                    <div class="node"><i class="status completed">■</i> 성과주의 기강 <span class="node-detail">(상벌 체계
-                            확립)</span></div>
                 </div>
-            </div>
 
-            <!-- Branch 3: 핵심 전략 기둥 -->
-            <div class="branch">
-                <div class="node b-strategy" onclick="toggleChildren('strategy')">
-                    핵심 전략 기둥
+                <div class="node-wrapper">
+                    <div class="node" onclick="toggleVisibility(this)"
+                        style="border-left: 3px solid var(--accent-blue);">
+                        <span class="status-icon blue">■</span>
+                        <span class="node-text" contenteditable="true" spellcheck="false">ACTS38의 철학</span>
+                    </div>
+                    <div class="add-btn" onclick="addNewChild(this)">+</div>
+                    <div class="children-container">
+                        <div class="node-wrapper">
+                            <div class="node" onclick="toggleVisibility(this)"><span
+                                    class="status-icon blue">•</span><span class="node-text" contenteditable="true">브랜드
+                                    세계관 수호</span></div>
+                            <div class="add-btn" onclick="addNewChild(this)">+</div>
+                            <div class="children-container hidden">
+                                <div class="node-wrapper">
+                                    <div class="node"><span class="node-text" contenteditable="true">Restore (기능의
+                                            복원)</span></div>
+                                </div>
+                                <div class="node-wrapper">
+                                    <div class="node"><span class="node-text" contenteditable="true">Limitless (가능성의
+                                            확장)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="strategy" class="sub-nodes">
-                    <div class="node"><i class="status pending">□</i> Global Standard 구축</div>
-                    <div class="node"><i class="status pending">□</i> ACTS38 Inside 인증 체계</div>
-                    <div class="node"><i class="status completed">■</i> 독점 원료 공급망 지배</div>
-                </div>
-            </div>
 
-            <!-- Branch 4: 시스템 및 데이터 -->
-            <div class="branch">
-                <div class="node b-system" onclick="toggleChildren('system')">
-                    시스템 및 데이터
+                <div class="node-wrapper">
+                    <div class="node" onclick="toggleVisibility(this)"
+                        style="border-left: 3px solid var(--accent-red);">
+                        <span class="status-icon red">□</span>
+                        <span class="node-text" contenteditable="true" spellcheck="false">핵심 전략 기둥</span>
+                    </div>
+                    <div class="add-btn" onclick="addNewChild(this)">+</div>
+                    <div class="children-container">
+                        <div class="node-wrapper">
+                            <div class="node"><span class="status-icon">□</span><span class="node-text"
+                                    contenteditable="true">Global Standard 구축</span></div>
+                        </div>
+                        <div class="node-wrapper">
+                            <div class="node"><span class="status-icon green">■</span><span class="node-text"
+                                    contenteditable="true">독점 원료 공급망 지배</span></div>
+                        </div>
+                    </div>
                 </div>
-                <div id="system" class="sub-nodes">
-                    <div class="node"><i class="status completed">■</i> 자동 백업: 99_Back_Up <span class="node-detail">(운영
-                            중)</span></div>
-                    <div class="node"><i class="status pending">□</i> 데이터 자산화: 고객 신체 데이터 구축</div>
-                    <div class="node"><i class="status completed">■</i> 버전 관리: v2.8 적용 완료</div>
-                </div>
-            </div>
 
+            </div>
         </div>
     </div>
 
     <script>
-        function toggleChildren(id) {
-            if (id === 'all') {
-                // 전체 접기/펴기 기능 (필요시)
-                return;
-            }
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.toggle('hidden');
-                event.stopPropagation(); // 부모 노드 클릭 이벤트 방지
+        let isAdmin = false;
+
+        // 관리자 인증 시스템 (초기 로드 시 또는 특정 행동 시 호출)
+        function authenticate() {
+            const password = prompt("ACTS38 전략 상황실 인증 암호를 입력하세요:");
+            if (password === "acts2030") { // 대표님 전용 암호
+                isAdmin = true;
+                enableEditing();
+                alert("수달대표님, 환영합니다. 편집 권한이 활성화되었습니다.");
+            } else {
+                alert("인증에 실패했습니다. 읽기 전용 모드로 유지됩니다.");
             }
         }
 
-        // 초기 애니메이션 효과 (약간의 딜레이 후 순차적으로 보여주기)
+        // 편집 권한 활성화
+        function enableEditing() {
+            document.querySelectorAll('.node-text').forEach(el => {
+                el.setAttribute('contenteditable', 'true');
+            });
+            document.querySelectorAll('.add-btn').forEach(el => {
+                el.style.display = 'flex';
+            });
+            document.body.classList.add('admin-mode');
+        }
+
+        // 하위 노드 표시/숨기기 토글
+        function toggleVisibility(nodeEl) {
+            const containers = nodeEl.parentElement.querySelectorAll(':scope > .children-container');
+            containers.forEach(container => {
+                container.classList.toggle('hidden');
+            });
+        }
+
+        // 새로운 하위 노드 추가
+        function addNewChild(btn) {
+            if (!isAdmin) return; // 관리자 아니면 실행 불가
+
+            const parentWrapper = btn.parentElement;
+            let childrenContainer = parentWrapper.querySelector(':scope > .children-container');
+
+            if (!childrenContainer) {
+                childrenContainer = document.createElement('div');
+                childrenContainer.className = 'children-container';
+                parentWrapper.appendChild(childrenContainer);
+            }
+
+            childrenContainer.classList.remove('hidden');
+
+            const newWrapper = document.createElement('div');
+            newWrapper.className = 'node-wrapper';
+
+            newWrapper.innerHTML = `
+                <div class="node" onclick="toggleVisibility(this)">
+                    <span class="status-icon">•</span>
+                    <span class="node-text" contenteditable="${isAdmin}" spellcheck="false">새로운 항목 입력...</span>
+                </div>
+                <div class="add-btn" onclick="addNewChild(this)">+</div>
+            `;
+
+            childrenContainer.appendChild(newWrapper);
+            const newTextEl = newWrapper.querySelector('.node-text');
+            newTextEl.focus();
+            document.execCommand('selectAll', false, null);
+            event.stopPropagation();
+        }
+
+        // Enter 키 입력 시 포커스 해제
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && e.target.classList.contains('node-text')) {
+                e.preventDefault();
+                e.target.blur();
+            }
+            // 비밀번호 입력을 위한 단축키 (예: Ctrl + Shift + L)
+            if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+                authenticate();
+            }
+        });
+
+        // 초기 상태 세팅 (모두 비활성화)
         window.onload = () => {
-            console.log("ACTS38 Strategic System Initialized.");
+            document.querySelectorAll('.node-text').forEach(el => el.setAttribute('contenteditable', 'false'));
+            document.querySelectorAll('.add-btn').forEach(el => el.style.display = 'none');
+            console.log("ACTS38 Strategic System Locked. Press Ctrl+Shift+L to Auth.");
         };
     </script>
 </body>
