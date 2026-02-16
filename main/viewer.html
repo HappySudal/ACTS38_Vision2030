@@ -303,7 +303,8 @@
                                                     <div class="node">
                                                         <i class="status">•</i>
                                                         <span class="node-text">복원된 기초 위에서 일상과 퍼포먼스를 한없이 확장하도록 기술적으로
-                                                            뒷받침하는 것. (기술적 한계를 넘어서는 전문적 Body&Mind Total Support)</span>
+                                                            뒷받침하는 것. (기술적 한계를 넘어서는 전문적 Body&amp;Mind Total
+                                                            Support)</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -340,8 +341,83 @@
                                                 <div class="branch">
                                                     <div class="node">
                                                         <i class="status">•</i>
-                                                        <span class="node-text">기술과 인체가 가장 완벽하게 만나는 지점을 찾아내어, 최상의 컨디션을
+                                                        <span class="node-text">기술과 몸이 가장 완벽하게 만나는 지점을 찾아내어, 최상의 컨디션을
                                                             유지하는 라이프스타일을 완성함.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)">
+                                        <i class="status">•</i>
+                                        <span class="node-text">ACTS38의 슬로건 : 브랜드가 고객에게 전달하는 최종적인 메시지와 감동</span>
+                                    </div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text"><b>Main Slogan</b></span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">"진정한 아름다움은 당신의 미소입니다."</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text">Sub Slogan</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">항상 여유와 미소를 잃지 않도록, 보이지 않는 곳에서 당신을 수호하는
+                                                            조용하고 강력한 기술력.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)">
+                                        <i class="status">•</i>
+                                        <span class="node-text">ACTS38의 지향점</span>
+                                    </div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text">Silence Etiquette (싸이런스 에티켓)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">진정한 전문가는 자신을 드러내지 않습니다. 냄새, 자극 등 모든
+                                                            번거로움을 제거한 절제된 프리미엄.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)">
+                                                <i class="status">•</i>
+                                                <span class="node-text">Private Performance (프라이빗 퍼포먼스)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node">
+                                                        <i class="status">•</i>
+                                                        <span class="node-text">대중적인 과시보다, 확실한 변화를 당신만이 체감할 수 있는 전문가적
+                                                            가치를 지향.</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -354,93 +430,92 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        window.addEventListener('load', () => {
-            initPanAndZoom();
-        });
-
-        function toggleChildren(el) {
-            const branch = el.parentElement;
-            const nextSub = branch.querySelector(':scope > .sub-nodes');
-            if (nextSub) nextSub.classList.toggle('hidden');
-        }
-
-        function searchNodes(query) {
-            const nodes = document.querySelectorAll('.node');
-            const term = query.toLowerCase();
-
-            nodes.forEach(node => {
-                const text = node.querySelector('.node-text').innerText.toLowerCase();
-                if (term !== "" && text.includes(term)) {
-                    node.classList.add('highlight');
-                    let parent = node.parentElement.closest('.sub-nodes');
-                    while (parent) {
-                        parent.classList.remove('hidden');
-                        parent = parent.parentElement.closest('.sub-nodes');
-                    }
-                } else {
-                    node.classList.remove('highlight');
-                }
+        <script>
+            window.addEventListener('load', () => {
+                initPanAndZoom();
             });
-        }
 
-        // 🔍 무한 캔버스 (Pan & Zoom) 엔진
-        function initPanAndZoom() {
-            const viewport = document.getElementById('viewport');
-            const canvas = document.getElementById('canvas');
-
-            let scale = 1;
-            let translateX = 0;
-            let translateY = 0;
-            let isPanning = false;
-            let startX, startY;
-
-            // 초기 위치 세팅
-            translateX = window.innerWidth / 4;
-            translateY = window.innerHeight / 4;
-            updateTransform();
-
-            function updateTransform() {
-                canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            function toggleChildren(el) {
+                const branch = el.parentElement;
+                const nextSub = branch.querySelector(':scope > .sub-nodes');
+                if (nextSub) nextSub.classList.toggle('hidden');
             }
 
-            window.addEventListener('wheel', (e) => {
-                const zoomSpeed = 0.001;
-                const delta = -e.deltaY;
-                const oldScale = scale;
-                scale += delta * zoomSpeed;
-                scale = Math.min(Math.max(0.1, scale), 3);
+            function searchNodes(query) {
+                const nodes = document.querySelectorAll('.node');
+                const term = query.toLowerCase();
 
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
+                nodes.forEach(node => {
+                    const text = node.querySelector('.node-text').innerText.toLowerCase();
+                    if (term !== "" && text.includes(term)) {
+                        node.classList.add('highlight');
+                        let parent = node.parentElement.closest('.sub-nodes');
+                        while (parent) {
+                            parent.classList.remove('hidden');
+                            parent = parent.parentElement.closest('.sub-nodes');
+                        }
+                    } else {
+                        node.classList.remove('highlight');
+                    }
+                });
+            }
 
-                translateX -= (mouseX - translateX) * (scale / oldScale - 1);
-                translateY -= (mouseY - translateY) * (scale / oldScale - 1);
+            // 🔍 무한 캔버스 (Pan & Zoom) 엔진
+            function initPanAndZoom() {
+                const viewport = document.getElementById('viewport');
+                const canvas = document.getElementById('canvas');
 
+                let scale = 1;
+                let translateX = 0;
+                let translateY = 0;
+                let isPanning = false;
+                let startX, startY;
+
+                // 초기 위치 세팅
+                translateX = window.innerWidth / 4;
+                translateY = window.innerHeight / 4;
                 updateTransform();
-            }, { passive: false });
 
-            viewport.addEventListener('mousedown', (e) => {
-                if (e.target.closest('.node')) return;
-                isPanning = true;
-                startX = e.clientX - translateX;
-                startY = e.clientY - translateY;
-            });
+                function updateTransform() {
+                    canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                }
 
-            window.addEventListener('mousemove', (e) => {
-                if (!isPanning) return;
-                translateX = e.clientX - startX;
-                translateY = e.clientY - startY;
-                updateTransform();
-            });
+                window.addEventListener('wheel', (e) => {
+                    const zoomSpeed = 0.001;
+                    const delta = -e.deltaY;
+                    const oldScale = scale;
+                    scale += delta * zoomSpeed;
+                    scale = Math.min(Math.max(0.1, scale), 3);
 
-            window.addEventListener('mouseup', () => {
-                isPanning = false;
-            });
-        }
-    </script>
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+
+                    translateX -= (mouseX - translateX) * (scale / oldScale - 1);
+                    translateY -= (mouseY - translateY) * (scale / oldScale - 1);
+
+                    updateTransform();
+                }, { passive: false });
+
+                viewport.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.node')) return;
+                    isPanning = true;
+                    startX = e.clientX - translateX;
+                    startY = e.clientY - translateY;
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isPanning) return;
+                    translateX = e.clientX - startX;
+                    translateY = e.clientY - startY;
+                    updateTransform();
+                });
+
+                window.addEventListener('mouseup', () => {
+                    isPanning = false;
+                });
+            }
+        </script>
 </body>
 
 </html>
