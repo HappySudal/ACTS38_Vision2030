@@ -27,11 +27,12 @@
             font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            overflow: auto;
+            /* 노드 추가 시 스크롤 가능하도록 수정 */
+            min-width: 100vw;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
         }
 
@@ -52,38 +53,36 @@
         }
 
         .container {
-            position: relative;
             display: flex;
             align-items: center;
-            padding: 50px;
+            padding: 100px;
+            /* 여백 확보 */
+            min-width: max-content;
         }
 
         /* 노드 공통 스타일 */
         .node {
             cursor: pointer;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 8px;
             background: var(--node-bg);
             border: 1px solid var(--line-color);
             white-space: normal;
-            /* 긴 문장 자동 줄바꿈 */
             word-break: keep-all;
-            /* 단어 단위 줄바꿈으로 가독성 향상 */
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             display: flex;
-            align-items: flex-start;
-            /* 텍스트가 여러 줄일 때 아이콘을 상단에 정렬 */
+            align-items: center;
             gap: 12px;
             backdrop-filter: blur(10px);
-            user-select: none;
+            user-select: text;
+            /* 텍스트 편집을 위해 수정 */
             max-width: 450px;
-            /* 노드의 최대 너비를 제한하여 가독성 확보 */
             line-height: 1.5;
         }
 
         .node:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
         }
@@ -97,7 +96,30 @@
             background: var(--glass-bg);
         }
 
-        /* 브랜치 레이아웃 */
+        /* 추가 버튼 스타일 */
+        .add-btn {
+            display: inline-flex;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-blue);
+            color: #000;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        /* 트리 레이아웃 */
         .tree {
             display: flex;
             flex-direction: column;
