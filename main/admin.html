@@ -334,36 +334,63 @@
             color: var(--text-dim);
         }
 
-        /* 데이터 추출 알림창 스타일 */
+        /* 전략 공표 패널 스타일 */
         #sync-panel {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
             z-index: 1000;
-            background: var(--glass-bg);
-            padding: 15px;
-            border-radius: 12px;
+            background: rgba(20, 25, 35, 0.9);
+            padding: 20px;
+            border-radius: 15px;
             border: 1px solid var(--accent-orange);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            box-shadow: 0 0 20px rgba(255, 157, 0, 0.2);
+            gap: 15px;
+            box-shadow: 0 0 30px rgba(255, 157, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 157, 0, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(255, 157, 0, 0.5);
+            }
+
+            100% {
+                box-shadow: 0 0 10px rgba(255, 157, 0, 0.2);
+            }
         }
 
         #sync-panel h3 {
             margin: 0;
-            font-size: 14px;
+            font-size: 15px;
             color: var(--accent-orange);
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .sync-btn {
-            padding: 8px 15px;
+            padding: 12px 20px;
             background: var(--accent-orange);
             color: #000;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .sync-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
         }
 
         #data-output {
@@ -372,42 +399,44 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
-            height: 70%;
-            background: #111;
-            color: #0f0;
-            padding: 20px;
+            width: 500px;
+            background: var(--glass-bg);
+            padding: 30px;
             z-index: 10001;
-            border-radius: 10px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            overflow: auto;
-            border: 2px solid var(--accent-blue);
+            border-radius: 20px;
+            border: 2px solid var(--accent-orange);
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
         }
 
         .close-output {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: red;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             border: none;
-            padding: 5px 10px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 
 <body class="admin-mode">
-    <!-- 데이터 추출 패널 -->
+    <!-- 전략 공표 패널 -->
     <div id="sync-panel" style="display:none;">
-        <h3>🔄 전략 동기화 대기 중</h3>
-        <button class="sync-btn" onclick="exportStrategicData()">데이터 추출하기</button>
+        <h3>🚀 전략 공표 시스템</h3>
+        <button class="sync-btn" onclick="exportStrategicData()">🚀 전략 대외 공표 (Publish)</button>
     </div>
 
-    <!-- 데이터 출력창 -->
+    <!-- 전략 공표 알림창 -->
     <div id="data-output">
-        <button class="close-output" onclick="document.getElementById('data-output').style.display='none'">닫기</button>
+        <button class="close-output" onclick="document.getElementById('data-output').style.display='none'">×</button>
         <div id="json-content"></div>
     </div>
     <!-- 로그인 관문 -->
@@ -570,19 +599,32 @@
             });
         }
 
-        // 🔄 데이터 추출 로직
+        // 🚀 전략 공표 (Publish) 엔진
         function exportStrategicData() {
             const rootContent = document.getElementById('mindmap-root').innerHTML;
-            const outputSafe = rootContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+            // 임시 textarea 생성하여 복사
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = rootContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextArea);
 
             document.getElementById('json-content').innerHTML = `
-                <p style="color:white">아래 내용을 모두 복사(Ctrl+A -> Ctrl+C)해서 랜도에게 전달해 주세요!</p>
-                <textarea id="copy-area" style="width:100%; height:400px; background:#222; color:#fff; border:1px solid #444;">${rootContent}</textarea>
+                <div style="padding: 20px;">
+                    <h2 style="color: var(--accent-orange); margin-bottom: 20px;">🚀 전략 공표 준비 완료!</h2>
+                    <p style="color: #fff; line-height: 1.6; margin-bottom: 25px;">
+                        최신 전략 데이터가 **클립보드에 자동으로 복사**되었습니다.<br><br>
+                        지금 바로 랜도에게 대화창에 붙여넣기(Ctrl+V) 한 뒤,<br>
+                        <span style="color: var(--accent-blue); font-weight: bold;">"랜도, 업데이트!"</span>라고 외쳐주세요!
+                    </p>
+                    <div style="background: rgba(0,255,136,0.1); border: 1px solid var(--accent-green); color: var(--accent-green); padding: 10px; border-radius: 8px; font-size: 13px;">
+                        ✅ 복사 성공 (Data Captured)
+                    </div>
+                </div>
             `;
             document.getElementById('data-output').style.display = 'block';
-
-            const copyText = document.getElementById("copy-area");
-            copyText.select();
         }
 
         // --- 기존 기능 함수들 (toggleChildren, addNewNode, deleteNode, searchNodes, initDragAndDrop 등) ---
