@@ -208,115 +208,136 @@
         <h2>ACTS38 Vision 2030 : Strategic Command</h2>
     </div>
 
-    <div class="container">
+    <div class="container" id="mindmap-root">
         <!-- Root Node -->
-        <div class="node root" onclick="toggleChildren('all')">
-            ACTS38 Vision 2030
-        </div>
-
-        <!-- First Level Tree -->
-        <div class="tree">
-
-            <!-- Branch 1: 조직 및 인력 -->
-            <div class="branch">
-                <div class="node b-people" onclick="toggleChildren('people')">
-                    조직 및 인력
-                </div>
-                <div id="people" class="sub-nodes">
-                    <div class="node"><i class="status completed">■</i> 수달 대표 <span
-                            class="node-detail">(최고의사결정권자)</span></div>
-                    <div class="node"><i class="status completed">■</i> 만두 실장 <span class="node-detail">(전략기획실장
-                            CSO)</span></div>
-                    <div class="node"><i class="status completed">■</i> 랜도 보좌관 <span class="node-detail">(수석보좌관
-                            Tech)</span></div>
-                </div>
+        <div class="branch">
+            <div class="node root" onclick="toggleChildren(this)">
+                <span class="node-text" contenteditable="true" spellcheck="false">ACTS38 Vision 2030</span>
+                <span class="add-btn" onclick="addNewNode(this, event)">+</span>
             </div>
 
-            <!-- Branch 2: ACTS38의 철학 -->
-            <div class="branch">
-                <div class="node b-principle" onclick="toggleChildren('principles')">
-                    ACTS38의 철학
-                </div>
-                <div id="principles" class="sub-nodes">
-                    <div class="node" onclick="toggleChildren('worldview')">
-                        <i class="status completed">■</i> 브랜드 세계관 수호 <span class="node-detail">(공식 명칭 엄수)</span>
+            <div class="tree">
+                <!-- Branch 1: 조직 및 인력 -->
+                <div class="branch">
+                    <div class="node b-people" onclick="toggleChildren(this)">
+                        <span class="node-text" contenteditable="true" spellcheck="false">조직 및 인력</span>
+                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
                     </div>
-                    <!-- 하위 하위 노드 (대표님 승인 시 노출될 상세 내용 공간) -->
-                    <div id="worldview" class="sub-nodes hidden">
-                        <div class="node" onclick="toggleChildren('details-restore')">
-                            <i class="status">•</i> Restore (기능의 복원)
-                        </div>
-                        <!-- Restore 하위 상세 컨텐츠 -->
-                        <div id="details-restore" class="sub-nodes hidden">
-                            <div class="node">본연의 기능을 가장 자연스럽고 온전한 상태로 회복</div>
-                            <div class="node">생체 리듬의 정상화 및 근본적 케어 시스템</div>
-                        </div>
-
-                        <div class="node" onclick="toggleChildren('details-limitless')">
-                            <i class="status">•</i> Limitless (가능성의 확장)
-                        </div>
-                        <!-- Limitless 하위 상세 컨텐츠 -->
-                        <div id="details-limitless" class="sub-nodes hidden">
-                            <div class="node">복원된 기초 위에서 퍼포먼스의 무한한 확장</div>
-                            <div class="node">기술적 한계를 넘어서는 전문적 테크 서포트</div>
-                        </div>
-
-                        <div class="node"><i class="status">•</i> 지속 가능한 미소 "진정한 아름다움은 당신의 미소입니다."</div>
+                    <div class="sub-nodes">
+                        <div class="node"><i class="status completed">■</i> <span class="node-text"
+                                contenteditable="true">수달 대표 (최고의사결정권자)</span></div>
+                        <div class="node"><i class="status completed">■</i> <span class="node-text"
+                                contenteditable="true">만두 실장 (전략기획실장 CSO)</span></div>
+                        <div class="node"><i class="status completed">■</i> <span class="node-text"
+                                contenteditable="true">랜도 보좌관 (수석보좌관 Tech)</span></div>
                     </div>
-                    <div class="node"><i class="status completed">■</i> 라이프사이클 점유 <span class="node-detail">(바디/스킨/향수
-                            시너지)</span></div>
-                    <div class="node"><i class="status completed">■</i> 원료 중심 의사결정 <span class="node-detail">(기술 권력
-                            확보)</span></div>
-                    <div class="node"><i class="status completed">■</i> 성과주의 기강 <span class="node-detail">(상벌 체계
-                            확립)</span></div>
+                </div>
+
+                <!-- Branch 2: ACTS38의 철학 -->
+                <div class="branch">
+                    <div class="node b-principle" onclick="toggleChildren(this)">
+                        <span class="node-text" contenteditable="true" spellcheck="false">ACTS38의 철학</span>
+                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                    </div>
+                    <div class="sub-nodes">
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)">
+                                <i class="status completed">■</i> <span class="node-text" contenteditable="true">브랜드 세계관
+                                    수호</span>
+                                <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                            </div>
+                            <div class="sub-nodes hidden">
+                                <div class="node"><span class="node-text" contenteditable="true">Restore (기능의 복원)</span>
+                                </div>
+                                <div class="node"><span class="node-text" contenteditable="true">Limitless (가능성의
+                                        확장)</span></div>
+                            </div>
+                        </div>
+                        <div class="node"><i class="status completed">■</i> <span class="node-text"
+                                contenteditable="true">라이프사이클 점유</span></div>
+                    </div>
+                </div>
+
+                <!-- Branch 3: 핵심 전략 기둥 -->
+                <div class="branch">
+                    <div class="node b-strategy" onclick="toggleChildren(this)">
+                        <span class="node-text" contenteditable="true" spellcheck="false">핵심 전략 기둥</span>
+                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                    </div>
+                    <div class="sub-nodes">
+                        <div class="node"><i class="status pending">□</i> <span class="node-text"
+                                contenteditable="true">Global Standard 구축</span></div>
+                        <div class="node"><i class="status completed">■</i> <span class="node-text"
+                                contenteditable="true">독점 원료 공급망 지배</span></div>
+                    </div>
+                </div>
+
+                <!-- Branch 4: 시스템 및 데이터 -->
+                <div class="branch">
+                    <div class="node b-system" onclick="toggleChildren(this)">
+                        <span class="node-text" contenteditable="true" spellcheck="false">시스템 및 데이터</span>
+                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                    </div>
+                    <div class="sub-nodes">
+                        <div class="node"><i class="status completed">■</i> <span class="node-text"
+                                contenteditable="true">자동 백업: 99_Back_Up</span></div>
+                        <div class="node"><i class="status pending">□</i> <span class="node-text"
+                                contenteditable="true">데이터 자산화</span></div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Branch 3: 핵심 전략 기둥 -->
-            <div class="branch">
-                <div class="node b-strategy" onclick="toggleChildren('strategy')">
-                    핵심 전략 기둥
-                </div>
-                <div id="strategy" class="sub-nodes">
-                    <div class="node"><i class="status pending">□</i> Global Standard 구축</div>
-                    <div class="node"><i class="status pending">□</i> ACTS38 Inside 인증 체계</div>
-                    <div class="node"><i class="status completed">■</i> 독점 원료 공급망 지배</div>
-                </div>
-            </div>
-
-            <!-- Branch 4: 시스템 및 데이터 -->
-            <div class="branch">
-                <div class="node b-system" onclick="toggleChildren('system')">
-                    시스템 및 데이터
-                </div>
-                <div id="system" class="sub-nodes">
-                    <div class="node"><i class="status completed">■</i> 자동 백업: 99_Back_Up <span class="node-detail">(운영
-                            중)</span></div>
-                    <div class="node"><i class="status pending">□</i> 데이터 자산화: 고객 신체 데이터 구축</div>
-                    <div class="node"><i class="status completed">■</i> 버전 관리: v2.8 적용 완료</div>
-                </div>
-            </div>
-
         </div>
     </div>
 
     <script>
-        function toggleChildren(id) {
-            if (id === 'all') {
-                // 전체 접기/펴기 기능 (필요시)
-                return;
+        // 하위 노드 토글 기능 (성공했던 로직 유지)
+        function toggleChildren(el) {
+            const branch = el.parentElement;
+            const nextSub = branch.querySelector(':scope > .sub-nodes') || branch.querySelector(':scope > .tree');
+            if (nextSub) {
+                nextSub.classList.toggle('hidden');
             }
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.toggle('hidden');
-                event.stopPropagation(); // 부모 노드 클릭 이벤트 방지
-            }
+            event.stopPropagation();
         }
 
-        // 초기 애니메이션 효과 (약간의 딜레이 후 순차적으로 보여주기)
-        window.onload = () => {
-            console.log("ACTS38 Strategic System Initialized.");
-        };
+        // 새로운 노드 추가 기능
+        function addNewNode(btn, e) {
+            e.stopPropagation();
+            const parentBranch = btn.closest('.branch');
+            let subContainer = parentBranch.querySelector(':scope > .sub-nodes');
+
+            if (!subContainer) {
+                subContainer = document.createElement('div');
+                subContainer.className = 'sub-nodes';
+                parentBranch.appendChild(subContainer);
+            }
+            subContainer.classList.remove('hidden');
+
+            const newNode = document.createElement('div');
+            newNode.className = 'node';
+            newNode.innerHTML = `
+                <i class="status">•</i> 
+                <span class="node-text" contenteditable="true">새로운 내용 입력...</span>
+                <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+            `;
+
+            subContainer.appendChild(newNode);
+
+            const newText = newNode.querySelector('.node-text');
+            newText.focus();
+            document.execCommand('selectAll', false, null);
+        }
+
+        // 초기화
+        window.onload = () => { console.log("Dynamic Command Center Ready."); };
+
+        // Enter 키 입력 시 줄바꿈 방지 및 포커스 해제
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && e.target.classList.contains('node-text')) {
+                e.preventDefault();
+                e.target.blur();
+            }
+        });
     </script>
 </body>
 

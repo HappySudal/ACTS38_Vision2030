@@ -1,645 +1,323 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 
-
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>ACTS38 Vision 2030 Strategic Mindmap</title>
-
     <style>
-
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
-
-
         :root {
-
             --bg-color: #05070a;
-
             --accent-blue: #00d2ff;
-
             --accent-orange: #ff9d00;
-
             --accent-green: #00ff88;
-
             --accent-red: #ff3c3c;
-
             --text-main: #e0e0e0;
-
             --text-dim: #888;
-
             --line-color: rgba(255, 255, 255, 0.15);
-
             --node-bg: rgba(255, 255, 255, 0.05);
-
             --glass-bg: rgba(20, 25, 35, 0.8);
-
         }
-
-
 
         body {
-
             background-color: var(--bg-color);
-
             color: var(--text-main);
-
             font-family: 'Noto Sans KR', sans-serif;
-
             margin: 0;
-
             padding: 0;
-
             overflow: hidden;
-
             width: 100vw;
-
             height: 100vh;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
         }
-
-
 
         /* 배경 효과 */
-
         .grid-bg {
-
             position: fixed;
-
             top: 0;
-
             left: 0;
-
             width: 100%;
-
             height: 100%;
-
             background-image:
-
                 radial-gradient(circle at 50% 50%, #101520 0%, transparent 80%),
-
                 linear-gradient(var(--line-color) 1px, transparent 1px),
-
                 linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
-
             background-size: 100% 100%, 50px 50px, 50px 50px;
-
             z-index: -1;
-
             opacity: 0.5;
-
         }
-
-
 
         .container {
-
             position: relative;
-
             display: flex;
-
             align-items: center;
-
             padding: 50px;
-
         }
-
-
 
         /* 노드 공통 스타일 */
-
         .node {
-
             cursor: pointer;
-
             padding: 12px 24px;
-
             border-radius: 8px;
-
             background: var(--node-bg);
-
             border: 1px solid var(--line-color);
-
             white-space: normal;
-
             /* 긴 문장 자동 줄바꿈 */
-
             word-break: keep-all;
-
             /* 단어 단위 줄바꿈으로 가독성 향상 */
-
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
             position: relative;
-
             display: flex;
-
             align-items: flex-start;
-
             /* 텍스트가 여러 줄일 때 아이콘을 상단에 정렬 */
-
             gap: 12px;
-
             backdrop-filter: blur(10px);
-
             user-select: none;
-
             max-width: 450px;
-
             /* 노드의 최대 너비를 제한하여 가독성 확보 */
-
             line-height: 1.5;
-
         }
-
-
 
         .node:hover {
-
             transform: scale(1.05);
-
             border-color: var(--accent-blue);
-
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
-
         }
-
-
 
         .node.root {
-
             font-family: 'Orbitron', sans-serif;
-
             font-size: 20px;
-
             font-weight: 700;
-
             border-left: 4px solid var(--accent-blue);
-
             padding: 20px 40px;
-
             background: var(--glass-bg);
-
         }
-
-
 
         /* 브랜치 레이아웃 */
-
         .tree {
-
             display: flex;
-
             flex-direction: column;
-
             gap: 40px;
-
             padding-left: 100px;
-
             position: relative;
-
         }
-
-
 
         .branch {
-
             display: flex;
-
             align-items: center;
-
             position: relative;
-
         }
-
-
 
         /* 하위 노드 컨테이너 */
-
         .sub-nodes {
-
             display: flex;
-
             flex-direction: column;
-
             gap: 15px;
-
             padding-left: 50px;
-
             margin-left: 30px;
-
             border-left: 2px solid var(--line-color);
-
             max-height: 1000px;
-
             opacity: 1;
-
             overflow: hidden;
-
             transition: all 0.5s ease-in-out;
-
         }
-
-
 
         .sub-nodes.hidden {
-
             max-height: 0;
-
             opacity: 0;
-
             margin-top: 0;
-
             margin-bottom: 0;
-
             pointer-events: none;
-
         }
-
-
 
         /* 상태 기호 */
-
         .status {
-
             font-style: normal;
-
         }
-
-
 
         .completed {
-
             color: var(--accent-green);
-
         }
-
-
 
         .pending {
-
             color: var(--text-dim);
-
         }
-
-
 
         /* 노드 상세 텍스트 */
-
         .node-detail {
-
             font-size: 13px;
-
             color: var(--text-dim);
-
             margin-left: 5px;
-
         }
-
-
 
         /* 선 연결 (SVG로 구현하기엔 복잡하므로 CSS 가상요소로 간단히 처리) */
-
         .branch::before {
-
             content: "";
-
             position: absolute;
-
             left: -100px;
-
             width: 100px;
-
             height: 2px;
-
             background: var(--line-color);
-
             z-index: -1;
-
         }
-
-
 
         /* 개별 컬러링 */
-
         .b-people {
-
             border-left: 3px solid var(--accent-orange);
-
         }
-
-
 
         .b-principle {
-
             border-left: 3px solid var(--accent-blue);
-
         }
-
-
 
         .b-strategy {
-
             border-left: 3px solid var(--accent-red);
-
         }
-
-
 
         .b-system {
-
             border-left: 3px solid var(--accent-green);
-
         }
-
-
 
         /* 헤더 고정 정보 */
-
         .header {
-
             position: absolute;
-
             top: 40px;
-
             left: 40px;
-
             font-family: 'Orbitron', sans-serif;
-
             letter-spacing: 2px;
-
         }
-
-
 
         .header h2 {
-
             margin: 0;
-
             font-size: 16px;
-
             color: var(--accent-blue);
-
             opacity: 0.8;
-
         }
-
     </style>
-
 </head>
-
-
 
 <body>
 
-
-
     <div class="grid-bg"></div>
 
-
-
     <div class="header">
-
         <h2>ACTS38 Vision 2030 : Strategic Command</h2>
-
     </div>
-
-
 
     <div class="container">
-
         <!-- Root Node -->
-
         <div class="node root" onclick="toggleChildren('all')">
-
             ACTS38 Vision 2030
-
         </div>
-
-
 
         <!-- First Level Tree -->
-
         <div class="tree">
 
-
-
             <!-- Branch 1: 조직 및 인력 -->
-
             <div class="branch">
-
                 <div class="node b-people" onclick="toggleChildren('people')">
-
                     조직 및 인력
-
                 </div>
-
                 <div id="people" class="sub-nodes">
-
                     <div class="node"><i class="status completed">■</i> 수달 대표 <span
-
                             class="node-detail">(최고의사결정권자)</span></div>
-
                     <div class="node"><i class="status completed">■</i> 만두 실장 <span class="node-detail">(전략기획실장
-
                             CSO)</span></div>
-
                     <div class="node"><i class="status completed">■</i> 랜도 보좌관 <span class="node-detail">(수석보좌관
-
                             Tech)</span></div>
-
                 </div>
-
             </div>
-
-
 
             <!-- Branch 2: ACTS38의 철학 -->
-
             <div class="branch">
-
                 <div class="node b-principle" onclick="toggleChildren('principles')">
-
                     ACTS38의 철학
-
                 </div>
-
                 <div id="principles" class="sub-nodes">
-
                     <div class="node" onclick="toggleChildren('worldview')">
-
                         <i class="status completed">■</i> 브랜드 세계관 수호 <span class="node-detail">(공식 명칭 엄수)</span>
-
                     </div>
-
                     <!-- 하위 하위 노드 (대표님 승인 시 노출될 상세 내용 공간) -->
-
                     <div id="worldview" class="sub-nodes hidden">
-
                         <div class="node" onclick="toggleChildren('details-restore')">
-
                             <i class="status">•</i> Restore (기능의 복원)
-
                         </div>
-
                         <!-- Restore 하위 상세 컨텐츠 -->
-
                         <div id="details-restore" class="sub-nodes hidden">
-
                             <div class="node">본연의 기능을 가장 자연스럽고 온전한 상태로 회복</div>
-
                             <div class="node">생체 리듬의 정상화 및 근본적 케어 시스템</div>
-
                         </div>
-
-
 
                         <div class="node" onclick="toggleChildren('details-limitless')">
-
                             <i class="status">•</i> Limitless (가능성의 확장)
-
                         </div>
-
                         <!-- Limitless 하위 상세 컨텐츠 -->
-
                         <div id="details-limitless" class="sub-nodes hidden">
-
                             <div class="node">복원된 기초 위에서 퍼포먼스의 무한한 확장</div>
-
                             <div class="node">기술적 한계를 넘어서는 전문적 테크 서포트</div>
-
                         </div>
-
-
 
                         <div class="node"><i class="status">•</i> 지속 가능한 미소 "진정한 아름다움은 당신의 미소입니다."</div>
-
                     </div>
-
                     <div class="node"><i class="status completed">■</i> 라이프사이클 점유 <span class="node-detail">(바디/스킨/향수
-
                             시너지)</span></div>
-
                     <div class="node"><i class="status completed">■</i> 원료 중심 의사결정 <span class="node-detail">(기술 권력
-
                             확보)</span></div>
-
                     <div class="node"><i class="status completed">■</i> 성과주의 기강 <span class="node-detail">(상벌 체계
-
                             확립)</span></div>
-
                 </div>
-
             </div>
-
-
 
             <!-- Branch 3: 핵심 전략 기둥 -->
-
             <div class="branch">
-
                 <div class="node b-strategy" onclick="toggleChildren('strategy')">
-
                     핵심 전략 기둥
-
                 </div>
-
                 <div id="strategy" class="sub-nodes">
-
                     <div class="node"><i class="status pending">□</i> Global Standard 구축</div>
-
                     <div class="node"><i class="status pending">□</i> ACTS38 Inside 인증 체계</div>
-
                     <div class="node"><i class="status completed">■</i> 독점 원료 공급망 지배</div>
-
                 </div>
-
             </div>
-
-
 
             <!-- Branch 4: 시스템 및 데이터 -->
-
             <div class="branch">
-
                 <div class="node b-system" onclick="toggleChildren('system')">
-
                     시스템 및 데이터
-
                 </div>
-
                 <div id="system" class="sub-nodes">
-
                     <div class="node"><i class="status completed">■</i> 자동 백업: 99_Back_Up <span class="node-detail">(운영
-
                             중)</span></div>
-
                     <div class="node"><i class="status pending">□</i> 데이터 자산화: 고객 신체 데이터 구축</div>
-
                     <div class="node"><i class="status completed">■</i> 버전 관리: v2.8 적용 완료</div>
-
                 </div>
-
             </div>
 
-
-
         </div>
-
     </div>
 
-
-
     <script>
-
         function toggleChildren(id) {
-
             if (id === 'all') {
-
                 // 전체 접기/펴기 기능 (필요시)
-
                 return;
-
             }
-
             const el = document.getElementById(id);
-
             if (el) {
-
                 el.classList.toggle('hidden');
-
                 event.stopPropagation(); // 부모 노드 클릭 이벤트 방지
-
             }
-
         }
 
-
-
         // 초기 애니메이션 효과 (약간의 딜레이 후 순차적으로 보여주기)
-
         window.onload = () => {
-
             console.log("ACTS38 Strategic System Initialized.");
-
         };
-
     </script>
-
 </body>
-
-
 
 </html>
