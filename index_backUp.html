@@ -19,6 +19,8 @@
             --line-color: rgba(255, 255, 255, 0.15);
             --node-bg: rgba(255, 255, 255, 0.05);
             --glass-bg: rgba(20, 25, 35, 0.8);
+            --search-bg: rgba(255, 255, 255, 0.1);
+            --highlight-bg: rgba(255, 157, 0, 0.3);
         }
 
         body {
@@ -27,15 +29,14 @@
             font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            overflow: auto;
+            min-width: 100vw;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
         }
 
-        /* 배경 효과 */
         .grid-bg {
             position: fixed;
             top: 0;
@@ -52,52 +53,119 @@
         }
 
         .container {
-            position: relative;
             display: flex;
             align-items: center;
-            padding: 50px;
+            padding: 150px 100px;
+            min-width: max-content;
+        }
+
+        /* 검색창 스타일 */
+        .search-wrapper {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass-bg);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 5px;
+            outline: none;
+            width: 180px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-dim);
         }
 
         /* 노드 공통 스타일 */
         .node {
             cursor: pointer;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 8px;
             background: var(--node-bg);
             border: 1px solid var(--line-color);
             white-space: normal;
-            /* 긴 문장 자동 줄바꿈 */
             word-break: keep-all;
-            /* 단어 단위 줄바꿈으로 가독성 향상 */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s ease;
             position: relative;
             display: flex;
-            align-items: flex-start;
-            /* 텍스트가 여러 줄일 때 아이콘을 상단에 정렬 */
+            align-items: center;
             gap: 12px;
             backdrop-filter: blur(10px);
-            user-select: none;
+            user-select: text;
             max-width: 450px;
-            /* 노드의 최대 너비를 제한하여 가독성 확보 */
             line-height: 1.5;
         }
 
         .node:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
             border-color: var(--accent-blue);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .node.highlight {
+            border-color: var(--accent-orange);
+            background: var(--highlight-bg);
+            box-shadow: 0 0 15px var(--accent-orange);
         }
 
         .node.root {
             font-family: 'Orbitron', sans-serif;
             font-size: 20px;
             font-weight: 700;
-            border-left: 4px solid var(--accent-blue);
+            border-left: 5px solid var(--accent-blue);
             padding: 20px 40px;
             background: var(--glass-bg);
         }
 
-        /* 브랜치 레이아웃 */
+        .btn-group {
+            display: inline-flex;
+            gap: 8px;
+            margin-left: 15px;
+            opacity: 1;
+            /* 항상 보이게 수정하여 시인성 확보 */
+            transition: opacity 0.3s;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #000;
+        }
+
+        .add-btn {
+            background: var(--accent-blue);
+        }
+
+        .del-btn {
+            background: var(--accent-red);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
+
         .tree {
             display: flex;
             flex-direction: column;
@@ -112,7 +180,6 @@
             position: relative;
         }
 
-        /* 하위 노드 컨테이너 */
         .sub-nodes {
             display: flex;
             flex-direction: column;
@@ -120,21 +187,13 @@
             padding-left: 50px;
             margin-left: 30px;
             border-left: 2px solid var(--line-color);
-            max-height: 1000px;
-            opacity: 1;
-            overflow: hidden;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.3s ease;
         }
 
         .sub-nodes.hidden {
-            max-height: 0;
-            opacity: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-            pointer-events: none;
+            display: none;
         }
 
-        /* 상태 기호 */
         .status {
             font-style: normal;
         }
@@ -147,14 +206,6 @@
             color: var(--text-dim);
         }
 
-        /* 노드 상세 텍스트 */
-        .node-detail {
-            font-size: 13px;
-            color: var(--text-dim);
-            margin-left: 5px;
-        }
-
-        /* 선 연결 (SVG로 구현하기엔 복잡하므로 CSS 가상요소로 간단히 처리) */
         .branch::before {
             content: "";
             position: absolute;
@@ -165,124 +216,144 @@
             z-index: -1;
         }
 
-        /* 개별 컬러링 */
-        .b-people {
-            border-left: 3px solid var(--accent-orange);
-        }
-
-        .b-principle {
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        .b-strategy {
-            border-left: 3px solid var(--accent-red);
-        }
-
-        .b-system {
-            border-left: 3px solid var(--accent-green);
-        }
-
-        /* 헤더 고정 정보 */
         .header {
-            position: absolute;
+            position: fixed;
             top: 40px;
             left: 40px;
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px;
+            z-index: 100;
         }
 
         .header h2 {
             margin: 0;
-            font-size: 16px;
+            font-size: 18px;
             color: var(--accent-blue);
-            opacity: 0.8;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
         }
     </style>
 </head>
 
 <body>
-
     <div class="grid-bg"></div>
 
     <div class="header">
         <h2>ACTS38 Vision 2030 : Strategic Command</h2>
     </div>
 
+    <div class="search-wrapper">
+        <span style="font-size: 14px;">🔍</span>
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요..." onkeyup="searchNodes(this.value)">
+    </div>
+
     <div class="container" id="mindmap-root">
-        <!-- Root Node -->
         <div class="branch">
-            <div class="node root" onclick="toggleChildren(this)">
+            <div class="node root" onclick="toggleChildren(this, event)">
                 <span class="node-text" contenteditable="true" spellcheck="false">ACTS38 Vision 2030</span>
-                <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                <div class="btn-group">
+                    <span class="action-btn add-btn" title="항목 추가" onclick="addNewNode(this, event)">+</span>
+                    <span class="action-btn del-btn" title="항목 삭제" onclick="deleteNode(this, event)">-</span>
+                </div>
             </div>
 
             <div class="tree">
                 <!-- Branch 1: 조직 및 인력 -->
                 <div class="branch">
-                    <div class="node b-people" onclick="toggleChildren(this)">
+                    <div class="node b-people" onclick="toggleChildren(this, event)">
                         <span class="node-text" contenteditable="true" spellcheck="false">조직 및 인력</span>
-                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                        <div class="btn-group">
+                            <span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span>
+                            <span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span>
+                        </div>
                     </div>
                     <div class="sub-nodes">
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">수달 대표 (최고의사결정권자)</span></div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">만두 실장 (전략기획실장 CSO)</span></div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">랜도 보좌관 (수석보좌관 Tech)</span></div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this, event)"><i class="status completed">■</i>
+                                <span class="node-text" contenteditable="true">수달 대표 (CEO)</span>
+                                <div class="btn-group"><span class="action-btn add-btn"
+                                        onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
+                                        onclick="deleteNode(this, event)">-</span></div>
+                            </div>
+                        </div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this, event)"><i class="status completed">■</i>
+                                <span class="node-text" contenteditable="true">만두 실장 (CSO)</span>
+                                <div class="btn-group"><span class="action-btn add-btn"
+                                        onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
+                                        onclick="deleteNode(this, event)">-</span></div>
+                            </div>
+                        </div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this, event)"><i class="status completed">■</i>
+                                <span class="node-text" contenteditable="true">랜도 보좌관 (Tech)</span>
+                                <div class="btn-group"><span class="action-btn add-btn"
+                                        onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
+                                        onclick="deleteNode(this, event)">-</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Branch 2: ACTS38의 철학 -->
                 <div class="branch">
-                    <div class="node b-principle" onclick="toggleChildren(this)">
+                    <div class="node b-principle" onclick="toggleChildren(this, event)">
                         <span class="node-text" contenteditable="true" spellcheck="false">ACTS38의 철학</span>
-                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                        <div class="btn-group">
+                            <span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span>
+                            <span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span>
+                        </div>
                     </div>
                     <div class="sub-nodes">
                         <div class="branch">
-                            <div class="node" onclick="toggleChildren(this)">
+                            <div class="node" onclick="toggleChildren(this, event)">
                                 <i class="status completed">■</i> <span class="node-text" contenteditable="true">브랜드 세계관
                                     수호</span>
-                                <span class="add-btn" onclick="addNewNode(this, event)">+</span>
-                            </div>
-                            <div class="sub-nodes hidden">
-                                <div class="node"><span class="node-text" contenteditable="true">Restore (기능의 복원)</span>
-                                </div>
-                                <div class="node"><span class="node-text" contenteditable="true">Limitless (가능성의
-                                        확장)</span></div>
+                                <div class="btn-group"><span class="action-btn add-btn"
+                                        onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
+                                        onclick="deleteNode(this, event)">-</span></div>
                             </div>
                         </div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">라이프사이클 점유</span></div>
                     </div>
                 </div>
 
                 <!-- Branch 3: 핵심 전략 기둥 -->
                 <div class="branch">
-                    <div class="node b-strategy" onclick="toggleChildren(this)">
+                    <div class="node b-strategy" onclick="toggleChildren(this, event)">
                         <span class="node-text" contenteditable="true" spellcheck="false">핵심 전략 기둥</span>
-                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                        <div class="btn-group">
+                            <span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span>
+                            <span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span>
+                        </div>
                     </div>
                     <div class="sub-nodes">
-                        <div class="node"><i class="status pending">□</i> <span class="node-text"
-                                contenteditable="true">Global Standard 구축</span></div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">독점 원료 공급망 지배</span></div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this, event)"><i class="status pending">□</i>
+                                <span class="node-text" contenteditable="true">Global Standard 구축</span>
+                                <div class="btn-group"><span class="action-btn add-btn"
+                                        onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
+                                        onclick="deleteNode(this, event)">-</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Branch 4: 시스템 및 데이터 -->
                 <div class="branch">
-                    <div class="node b-system" onclick="toggleChildren(this)">
+                    <div class="node b-system" onclick="toggleChildren(this, event)">
                         <span class="node-text" contenteditable="true" spellcheck="false">시스템 및 데이터</span>
-                        <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                        <div class="btn-group">
+                            <span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span>
+                            <span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span>
+                        </div>
                     </div>
                     <div class="sub-nodes">
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">자동 백업: 99_Back_Up</span></div>
-                        <div class="node"><i class="status pending">□</i> <span class="node-text"
-                                contenteditable="true">데이터 자산화</span></div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this, event)"><i class="status completed">■</i>
+                                <span class="node-text" contenteditable="true">자동 백업 운영 중</span>
+                                <div class="btn-group"><span class="action-btn add-btn"
+                                        onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
+                                        onclick="deleteNode(this, event)">-</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -290,19 +361,15 @@
     </div>
 
     <script>
-        // 하위 노드 토글 기능 (성공했던 로직 유지)
-        function toggleChildren(el) {
+        function toggleChildren(el, e) {
+            if (e) e.stopPropagation();
             const branch = el.parentElement;
             const nextSub = branch.querySelector(':scope > .sub-nodes') || branch.querySelector(':scope > .tree');
-            if (nextSub) {
-                nextSub.classList.toggle('hidden');
-            }
-            event.stopPropagation();
+            if (nextSub) nextSub.classList.toggle('hidden');
         }
 
-        // 새로운 노드 추가 기능
         function addNewNode(btn, e) {
-            e.stopPropagation();
+            if (e) e.stopPropagation();
             const parentBranch = btn.closest('.branch');
             let subContainer = parentBranch.querySelector(':scope > .sub-nodes');
 
@@ -313,29 +380,59 @@
             }
             subContainer.classList.remove('hidden');
 
-            const newNode = document.createElement('div');
-            newNode.className = 'node';
-            newNode.innerHTML = `
-                <i class="status">•</i> 
-                <span class="node-text" contenteditable="true">새로운 내용 입력...</span>
-                <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+            const newBranch = document.createElement('div');
+            newBranch.className = 'branch';
+            newBranch.innerHTML = `
+                <div class="node" onclick="toggleChildren(this, event)">
+                    <i class="status">•</i> 
+                    <span class="node-text" contenteditable="true">새로운 항목...</span>
+                    <div class="btn-group">
+                        <span class="action-btn add-btn" onclick="addNewNode(this, event)">+</span>
+                        <span class="action-btn del-btn" onclick="deleteNode(this, event)">-</span>
+                    </div>
+                </div>
             `;
-
-            subContainer.appendChild(newNode);
-
-            const newText = newNode.querySelector('.node-text');
+            subContainer.appendChild(newBranch);
+            const newText = newBranch.querySelector('.node-text');
             newText.focus();
             document.execCommand('selectAll', false, null);
         }
 
-        // 초기화
-        window.onload = () => { console.log("Dynamic Command Center Ready."); };
+        function deleteNode(btn, e) {
+            if (e) e.stopPropagation();
+            const nodeEl = btn.closest('.node');
+            if (nodeEl.classList.contains('root')) {
+                alert("⚠️ 루트 노드는 우리 플젝의 뿌리라 삭제할 수 없어요!");
+                return;
+            }
+            if (confirm("정말로 이 노드와 하위 항목을 삭제하시겠습니까?")) {
+                const target = btn.closest('.branch');
+                if (target) target.remove();
+            }
+        }
 
-        // Enter 키 입력 시 줄바꿈 방지 및 포커스 해제
+        function searchNodes(query) {
+            const nodes = document.querySelectorAll('.node');
+            const term = query.toLowerCase();
+
+            nodes.forEach(node => {
+                const text = node.querySelector('.node-text').innerText.toLowerCase();
+                if (term !== "" && text.includes(term)) {
+                    node.classList.add('highlight');
+                    let parent = node.parentElement.closest('.sub-nodes');
+                    while (parent) {
+                        parent.classList.remove('hidden');
+                        parent = parent.parentElement.closest('.sub-nodes');
+                    }
+                } else {
+                    node.classList.remove('highlight');
+                }
+            });
+        }
+
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' && e.target.classList.contains('node-text')) {
-                e.preventDefault();
-                e.target.blur();
+                e.preventDefault(); e.target.blur();
             }
         });
     </script>
