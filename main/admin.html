@@ -130,10 +130,33 @@
             opacity: 0.5;
         }
 
+        /* 무한 캔버스 스타일 */
+        #viewport {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            cursor: grab;
+            z-index: 5;
+        }
+
+        #viewport:active {
+            cursor: grabbing;
+        }
+
+        #canvas {
+            position: absolute;
+            transform-origin: 0 0;
+            will-change: transform;
+        }
+
         .container {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            padding: 150px 100px;
+            padding: 500px;
+            /* 충분한 여백 확보 */
             min-width: max-content;
         }
 
@@ -409,33 +432,44 @@
             <span>🔍</span>
             <input type="text" class="search-input" placeholder="검색..." onkeyup="searchNodes(this.value)">
         </div>
-        <div class="container" id="mindmap-root">
-            <div class="branch" data-id="root">
-                <div class="node root" onclick="toggleChildren(this, event)">
-                    <span class="node-text" contenteditable="true" spellcheck="false">ACTS38 Vision 2030</span>
-                    <div class="btn-group">
-                        <span class="action-btn add-btn" title="항목 추가" onclick="addNewNode(this, event)">+</span>
-                        <span class="action-btn del-btn" title="항목 삭제" onclick="deleteNode(this, event)">-</span>
-                    </div>
-                </div>
-                <!-- 하위 트리들... (생략된 것처럼 보이지만 실제로는 다 넣어드릴게요) -->
-                <div class="tree" id="main-tree">
-                    <!-- Branch 1: 조직 및 인력 -->
-                    <div class="branch">
-                        <div class="node" onclick="toggleChildren(this, event)"><i class="drag-handle">⠿</i><span
-                                class="node-text" contenteditable="true">조직 및 인력</span>
-                            <div class="btn-group"><span class="action-btn add-btn"
-                                    onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
-                                    onclick="deleteNode(this, event)">-</span></div>
+
+        <!-- 드래그 & 줌 뷰포트 -->
+        <div id="viewport">
+            <div id="canvas">
+                <div class="container" id="mindmap-root">
+                    <div class="branch" data-id="root">
+                        <div class="node root" onclick="toggleChildren(this, event)">
+                            <span class="node-text" contenteditable="true" spellcheck="false">ACTS38 Vision 2030</span>
+                            <div class="btn-group">
+                                <span class="action-btn add-btn" title="항목 추가"
+                                    onclick="addNewNode(this, event)">+</span>
+                                <span class="action-btn del-btn" title="항목 삭제"
+                                    onclick="deleteNode(this, event)">-</span>
+                            </div>
                         </div>
-                        <div class="sub-nodes">
+                        <!-- 하위 트리들... (생략된 것처럼 보이지만 실제로는 다 넣어드릴게요) -->
+                        <div class="tree" id="main-tree">
+                            <!-- Branch 1: 조직 및 인력 -->
                             <div class="branch">
-                                <div class="node" onclick="toggleChildren(this, event)"><i class="drag-handle">⠿</i><i
-                                        class="status completed">■</i><span class="node-text" contenteditable="true">수달
-                                        대표 (CEO)</span>
+                                <div class="node" onclick="toggleChildren(this, event)"><i
+                                        class="drag-handle">⠿</i><span class="node-text" contenteditable="true">조직 및
+                                        인력</span>
                                     <div class="btn-group"><span class="action-btn add-btn"
                                             onclick="addNewNode(this, event)">+</span><span class="action-btn del-btn"
                                             onclick="deleteNode(this, event)">-</span></div>
+                                </div>
+                                <div class="sub-nodes">
+                                    <div class="branch">
+                                        <div class="node" onclick="toggleChildren(this, event)"><i
+                                                class="drag-handle">⠿</i><i class="status completed">■</i><span
+                                                class="node-text" contenteditable="true">수달
+                                                대표 (CEO)</span>
+                                            <div class="btn-group"><span class="action-btn add-btn"
+                                                    onclick="addNewNode(this, event)">+</span><span
+                                                    class="action-btn del-btn"
+                                                    onclick="deleteNode(this, event)">-</span></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -468,7 +502,73 @@
                 document.getElementById('sync-panel').style.display = 'flex';
             }
             document.querySelectorAll('.branch').forEach(initDragAndDrop);
+            initPanAndZoom(); // 🔍 확대/축소 & 이동 엔진 가동!
         });
+
+        // 🔍 무한 캔버스 (Pan & Zoom) 엔진
+        function initPanAndZoom() {
+            const viewport = document.getElementById('viewport');
+            const canvas = document.getElementById('canvas');
+
+            let scale = 1;
+            let translateX = 0;
+            let translateY = 0;
+            let isPanning = false;
+            let startX, startY;
+
+            // 초기 위치 중앙 근처로 세팅
+            translateX = window.innerWidth / 4;
+            translateY = window.innerHeight / 4;
+            updateTransform();
+
+            function updateTransform() {
+                canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            }
+
+            // [확대/축소] 마우스 휠 이벤트
+            window.addEventListener('wheel', (e) => {
+                // 노드 텍스트 편집 중에는 줌 방지 (옵션)
+                if (document.activeElement.classList.contains('node-text')) return;
+
+                const zoomSpeed = 0.001;
+                const delta = -e.deltaY;
+                const oldScale = scale;
+
+                scale += delta * zoomSpeed;
+                scale = Math.min(Math.max(0.1, scale), 3); // 0.1배 ~ 3배 제한
+
+                // 마우스 커서 지점을 기준으로 확대/축소 계산
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                translateX -= (mouseX - translateX) * (scale / oldScale - 1);
+                translateY -= (mouseY - translateY) * (scale / oldScale - 1);
+
+                updateTransform();
+            }, { passive: false });
+
+            // [화면 이동] 드래그 이벤트
+            viewport.addEventListener('mousedown', (e) => {
+                // 노드나 버튼 클릭 시에는 이동 방지
+                if (e.target.closest('.node') || e.target.closest('.action-btn')) return;
+
+                isPanning = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isPanning) return;
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+            });
+
+            window.addEventListener('mouseup', () => {
+                isPanning = false;
+            });
+        }
 
         // 🔄 데이터 추출 로직
         function exportStrategicData() {
