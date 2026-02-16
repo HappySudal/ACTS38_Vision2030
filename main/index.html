@@ -246,12 +246,21 @@
                         <span class="add-btn" onclick="addNewNode(this, event)">+</span>
                     </div>
                     <div class="sub-nodes">
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">수달 대표 (최고의사결정권자)</span></div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">만두 실장 (전략기획실장 CSO)</span></div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">랜도 보좌관 (수석보좌관 Tech)</span></div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status completed">■</i> <span
+                                    class="node-text" contenteditable="true">수달 대표 (CEO)</span><span class="add-btn"
+                                    onclick="addNewNode(this, event)">+</span></div>
+                        </div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status completed">■</i> <span
+                                    class="node-text" contenteditable="true">만두 실장 (CSO)</span><span class="add-btn"
+                                    onclick="addNewNode(this, event)">+</span></div>
+                        </div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status completed">■</i> <span
+                                    class="node-text" contenteditable="true">랜도 보좌관 (Tech)</span><span class="add-btn"
+                                    onclick="addNewNode(this, event)">+</span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -269,14 +278,23 @@
                                 <span class="add-btn" onclick="addNewNode(this, event)">+</span>
                             </div>
                             <div class="sub-nodes hidden">
-                                <div class="node"><span class="node-text" contenteditable="true">Restore (기능의 복원)</span>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)"><span class="node-text"
+                                            contenteditable="true">Restore (복원)</span><span class="add-btn"
+                                            onclick="addNewNode(this, event)">+</span></div>
                                 </div>
-                                <div class="node"><span class="node-text" contenteditable="true">Limitless (가능성의
-                                        확장)</span></div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)"><span class="node-text"
+                                            contenteditable="true">Limitless (확장)</span><span class="add-btn"
+                                            onclick="addNewNode(this, event)">+</span></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">라이프사이클 점유</span></div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status completed">■</i> <span
+                                    class="node-text" contenteditable="true">라이프사이클 점유</span><span class="add-btn"
+                                    onclick="addNewNode(this, event)">+</span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -287,10 +305,16 @@
                         <span class="add-btn" onclick="addNewNode(this, event)">+</span>
                     </div>
                     <div class="sub-nodes">
-                        <div class="node"><i class="status pending">□</i> <span class="node-text"
-                                contenteditable="true">Global Standard 구축</span></div>
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">독점 원료 공급망 지배</span></div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status pending">□</i> <span
+                                    class="node-text" contenteditable="true">Global Standard 구축</span><span
+                                    class="add-btn" onclick="addNewNode(this, event)">+</span></div>
+                        </div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status completed">■</i> <span
+                                    class="node-text" contenteditable="true">독점 원료 공급망 지배</span><span class="add-btn"
+                                    onclick="addNewNode(this, event)">+</span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -301,10 +325,16 @@
                         <span class="add-btn" onclick="addNewNode(this, event)">+</span>
                     </div>
                     <div class="sub-nodes">
-                        <div class="node"><i class="status completed">■</i> <span class="node-text"
-                                contenteditable="true">자동 백업: 99_Back_Up</span></div>
-                        <div class="node"><i class="status pending">□</i> <span class="node-text"
-                                contenteditable="true">데이터 자산화</span></div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status completed">■</i> <span
+                                    class="node-text" contenteditable="true">자동 백업 운영 중</span><span class="add-btn"
+                                    onclick="addNewNode(this, event)">+</span></div>
+                        </div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status pending">□</i> <span
+                                    class="node-text" contenteditable="true">데이터 자산화 추진</span><span class="add-btn"
+                                    onclick="addNewNode(this, event)">+</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -312,7 +342,7 @@
     </div>
 
     <script>
-        // 하위 노드 토글 기능 (성공했던 로직 유지)
+        // 토글 기능 (성공 로직)
         function toggleChildren(el) {
             const branch = el.parentElement;
             const nextSub = branch.querySelector(':scope > .sub-nodes') || branch.querySelector(':scope > .tree');
@@ -322,10 +352,10 @@
             event.stopPropagation();
         }
 
-        // 새로운 노드 추가 기능
+        // 노드 추가 기능 강화
         function addNewNode(btn, e) {
             e.stopPropagation();
-            const parentBranch = btn.closest('.branch');
+            const parentBranch = btn.closest('.branch') || btn.closest('.node').parentElement;
             let subContainer = parentBranch.querySelector(':scope > .sub-nodes');
 
             if (!subContainer) {
@@ -335,25 +365,25 @@
             }
             subContainer.classList.remove('hidden');
 
-            const newNode = document.createElement('div');
-            newNode.className = 'node';
-            newNode.innerHTML = `
-                <i class="status">•</i> 
-                <span class="node-text" contenteditable="true">새로운 내용 입력...</span>
-                <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+            const newBranch = document.createElement('div');
+            newBranch.className = 'branch';
+            newBranch.innerHTML = `
+                <div class="node" onclick="toggleChildren(this)">
+                    <i class="status">•</i> 
+                    <span class="node-text" contenteditable="true">새로운 항목 입력...</span>
+                    <span class="add-btn" onclick="addNewNode(this, event)">+</span>
+                </div>
             `;
 
-            subContainer.appendChild(newNode);
+            subContainer.appendChild(newBranch);
 
-            const newText = newNode.querySelector('.node-text');
+            const newText = newBranch.querySelector('.node-text');
             newText.focus();
             document.execCommand('selectAll', false, null);
         }
 
-        // 초기화
-        window.onload = () => { console.log("Dynamic Command Center Ready."); };
+        window.onload = () => { console.log("All-Node Dynamic Mode Active."); };
 
-        // Enter 키 입력 시 줄바꿈 방지 및 포커스 해제
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' && e.target.classList.contains('node-text')) {
                 e.preventDefault();
