@@ -93,6 +93,8 @@
             border-radius: 30px;
             border: 1px solid var(--accent-blue);
             box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+            transform: scale(var(--zoom-scale, 1)) !important;
+            transform-origin: top right;
         }
 
         .search-input {
@@ -111,12 +113,12 @@
             border-radius: 8px;
             background: var(--node-bg);
             border: 1px solid var(--line-color);
-            white-space: normal;
-            word-break: keep-all;
+            white-space: pre-wrap;
+            word-break: break-all;
             transition: all 0.3s ease;
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             backdrop-filter: blur(10px);
             user-select: none;
@@ -201,6 +203,8 @@
             left: 40px;
             font-family: 'Pretendard', sans-serif;
             z-index: 100;
+            transform: scale(var(--zoom-scale, 1)) !important;
+            transform-origin: top left;
         }
 
         .header h2 {
@@ -238,190 +242,177 @@
                     <div class="node root" onclick="toggleChildren(this)">
                         <span class="node-text">ACTS38 Vision 2030</span>
                     </div>
-                    <div class="tree">
-                        <!-- Branch 1: 조직 및 인력 -->
+                    <div class="tree" id="main-tree">
                         <div class="branch">
                             <div class="node" onclick="toggleChildren(this)">
                                 <span class="node-text">조직 및 인력</span>
                             </div>
                             <div class="sub-nodes">
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)">
-                                        <i class="status completed">■</i>
-                                        <span class="node-text">수달 대표 (CEO)</span>
+                                    <div class="node" onclick="toggleChildren(this)"><i
+                                            class="status completed">■</i><span class="node-text">수달 대표 (CEO)</span>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)">
-                                        <i class="status">•</i>
-                                        <span class="node-text">만두 실장(CSO)</span>
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text">만두 실장(CSO)</span></div>
+                                </div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text">랜도 수석(CTO)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="branch">
+                            <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                    class="node-text">ACTS38의 세계관</span></div>
+                            <div class="sub-nodes">
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 철학</span></div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text">Restore (기능의 복원)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">■근원으로의 회귀<br>단순히
+                                                            달라지는 것이 아니라, 몸이 가진 본연의 기능을 가장 자연스럽고 온전한 상태로 되돌리는 것. (생체 리듬의
+                                                            정상화 및 근본적 케어 시스템)</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text">Limitless (가능의
+                                                    확장)</span></div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">■몸과 마음의 무한한
+                                                            확장<br>복원된 기초 위에서 일상과 퍼포먼스를 한없이 확장하도록 기술적으로 뒷받침하는 것. (기술적 한계를
+                                                            넘어서는 전문적 Body&amp;Mind Total Support)</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)">
-                                        <i class="status">•</i>
-                                        <span class="node-text">랜도 수석(CTO)</span>
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 핵심가치</span></div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text"><b>Potential Activation
+                                                        (잠재력의 활성화)</b></span></div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">고객이 이미 가지고 있는
+                                                            최상의 잠재력을 깨우는 정교한 설계자.</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text">Harmonized Design (조화로운
+                                                    설계)</span></div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">기술과 몸이 가장 완벽하게
+                                                            만나는 지점을 찾아내어, 최상의 컨디션을 유지하는 라이프스타일을 완성함.</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 슬로건 : 브랜드가 고객에게 전달하는 최종적인 메시지와 감동</span></div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text"><b>Main
+                                                        Slogan</b></span></div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">"진정한 아름다움은 당신의
+                                                            미소입니다."</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text">Sub Slogan</span></div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">항상 여유와 미소를 잃지
+                                                            않도록, 보이지 않는 곳에서 당신을 수호하는 조용하고 강력한 기술력.</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="branch">
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 지향점</span></div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text">Silence Etiquette (싸이런스
+                                                    에티켓)</span></div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">진정한 전문가는 자신을
+                                                            드러내지 않습니다. 냄새, 자극 등 모든 번거로움을 제거한 절제된 프리미엄.</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text">Private Performance
+                                                    (프라이빗 퍼포먼스)</span></div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                            class="status">•</i><span class="node-text">대중적인 과시보다, 확실한
+                                                            변화를 당신만이 체감할 수 있는 전문가적 가치를 지향.</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Branch 2: ACTS38의 세계관 -->
                         <div class="branch">
-                            <div class="node" onclick="toggleChildren(this)">
-                                <i class="status">•</i>
-                                <span class="node-text">ACTS38의 세계관</span>
-                            </div>
+                            <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                    class="node-text">
+                                    <h3>Ⅱ. ACTS38 TECHNOLOGY &amp; R&amp;D (기술적 권위)</h3>
+                                </span></div>
                             <div class="sub-nodes">
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)">
-                                        <i class="status">•</i>
-                                        <span class="node-text">ACTS38의 철학</span>
-                                    </div>
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text"><b>2.1 Evidence-Based의 핵심 원료</b></span></div>
                                     <div class="sub-nodes">
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text">Restore (기능의 복원)</span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">단순히 달라지는 것이 아니라, 몸이 가진 본연의 기능을 가장 자연스럽고
-                                                            온전한 상태로 되돌리는 것. (생체 리듬의 정상화 및 근본적 케어 시스템)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text">Limitless (가능의 확장)</span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">복원된 기초 위에서 일상과 퍼포먼스를 한없이 확장하도록 기술적으로
-                                                            뒷받침하는 것. (기술적 한계를 넘어서는 전문적 Body&amp;Mind Total
-                                                            Support)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="node" onclick="toggleChildren(this)"><i
+                                                    class="status">•</i><span class="node-text">새로운 항목...</span></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)">
-                                        <i class="status">•</i>
-                                        <span class="node-text">ACTS38의 핵심가치</span>
-                                    </div>
-                                    <div class="sub-nodes">
-                                        <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text"><b>Potential Activation (잠재력의 활성화)</b></span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">고객이 이미 가지고 있는 최상의 잠재력을 깨우는 정교한
-                                                            설계자.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text">Harmonized Design (조화로운 설계)</span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">기술과 몸이 가장 완벽하게 만나는 지점을 찾아내어, 최상의 컨디션을
-                                                            유지하는 라이프스타일을 완성함.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text"><b>2.2 매커니즘 (Action Mechanism)</b></span></div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)">
-                                        <i class="status">•</i>
-                                        <span class="node-text">ACTS38의 슬로건 : 브랜드가 고객에게 전달하는 최종적인 메시지와 감동</span>
-                                    </div>
-                                    <div class="sub-nodes">
-                                        <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text"><b>Main Slogan</b></span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">"진정한 아름다움은 당신의 미소입니다."</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text">Sub Slogan</span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">항상 여유와 미소를 잃지 않도록, 보이지 않는 곳에서 당신을 수호하는
-                                                            조용하고 강력한 기술력.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)">
-                                        <i class="status">•</i>
-                                        <span class="node-text">ACTS38의 지향점</span>
-                                    </div>
-                                    <div class="sub-nodes">
-                                        <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text">Silence Etiquette (싸이런스 에티켓)</span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">진정한 전문가는 자신을 드러내지 않습니다. 냄새, 자극 등 모든
-                                                            번거로움을 제거한 절제된 프리미엄.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)">
-                                                <i class="status">•</i>
-                                                <span class="node-text">Private Performance (프라이빗 퍼포먼스)</span>
-                                            </div>
-                                            <div class="sub-nodes">
-                                                <div class="branch">
-                                                    <div class="node">
-                                                        <i class="status">•</i>
-                                                        <span class="node-text">대중적인 과시보다, 확실한 변화를 당신만이 체감할 수 있는 전문가적
-                                                            가치를 지향.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                            class="node-text"><b>2.3 딥-엑스트랙션 솔루션(Deep-Extraction Solution)</b></span>
                                     </div>
                                 </div>
                             </div>
@@ -482,8 +473,9 @@
 
                 function updateTransform() {
                     canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                    // 🔹 CSS 변수를 사용하여 UI 요소들 크기 동기화
+                    document.documentElement.style.setProperty('--zoom-scale', scale);
                 }
-
                 centerView();
 
                 // [확대/축소] 마우스 휠
