@@ -239,150 +239,170 @@
         <div id="canvas">
             <div class="container" id="mindmap-root">
                 <div class="branch" data-id="root">
-                    <div class="node root" onclick="toggleChildren(this)">
+                    <div class="node root" onclick="toggleChildren(this, event)">
                         <span class="node-text">ACTS38 Vision 2030</span>
                     </div>
                     <div class="tree" id="main-tree">
                         <div class="branch">
-                            <div class="node" onclick="toggleChildren(this)">
-                                <span class="node-text">조직 및 인력</span>
+                            <div class="node" onclick="toggleChildren(this, event)"><span class="node-text">조직 및
+                                    인력</span>
                             </div>
                             <div class="sub-nodes">
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i
+                                    <div class="node" onclick="toggleChildren(this, event)"><i
                                             class="status completed">■</i><span class="node-text">수달 대표 (CEO)</span>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
                                             class="node-text">만두 실장(CSO)</span></div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
                                             class="node-text">랜도 수석(CTO)</span></div>
                                 </div>
                             </div>
                         </div>
                         <div class="branch">
-                            <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                    class="node-text">ACTS38의 세계관</span></div>
+                            <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                    class="node-text">ACTS38의 세계관</span>
+                            </div>
                             <div class="sub-nodes">
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                            class="node-text">ACTS38의 철학</span></div>
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 철학</span>
+                                    </div>
                                     <div class="sub-nodes">
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
                                                     class="status">•</i><span class="node-text">Restore (기능의 복원)</span>
                                             </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
-                                                            class="status">•</i><span class="node-text">■근원으로의 회귀<br>단순히
-                                                            달라지는 것이 아니라, 몸이 가진 본연의 기능을 가장 자연스럽고 온전한 상태로 되돌리는 것. (생체 리듬의
-                                                            정상화 및 근본적 케어 시스템)</span></div>
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">단순히 달라지는 것이 아니라,
+                                                            몸이 가진 본연의 기능을 가장 자연스럽고 온전한 상태로 되돌리는 것. (생체 리듬의 정상화 및 근본적 케어
+                                                            시스템)</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
                                                     class="status">•</i><span class="node-text">Limitless (가능의
-                                                    확장)</span></div>
+                                                    확장)</span>
+                                            </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
-                                                            class="status">•</i><span class="node-text">■몸과 마음의 무한한
-                                                            확장<br>복원된 기초 위에서 일상과 퍼포먼스를 한없이 확장하도록 기술적으로 뒷받침하는 것. (기술적 한계를
-                                                            넘어서는 전문적 Body&amp;Mind Total Support)</span></div>
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">복원된 기초 위에서 일상과
+                                                            퍼포먼스를 한없이 확장하도록 기술적으로 뒷받침하는 것. (기술적 한계를 넘어서는 전문적
+                                                            Body&amp;Mind Total Support)</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                            class="node-text">ACTS38의 핵심가치</span></div>
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 핵심가치</span>
+                                    </div>
                                     <div class="sub-nodes">
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
                                                     class="status">•</i><span class="node-text"><b>Potential Activation
-                                                        (잠재력의 활성화)</b></span></div>
+                                                        (잠재력의 활성화)</b></span>
+                                            </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
                                                             class="status">•</i><span class="node-text">고객이 이미 가지고 있는
-                                                            최상의 잠재력을 깨우는 정교한 설계자.</span></div>
+                                                            최상의 잠재력을 깨우는 정교한 설계자.</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
                                                     class="status">•</i><span class="node-text">Harmonized Design (조화로운
-                                                    설계)</span></div>
+                                                    설계)</span>
+                                            </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
                                                             class="status">•</i><span class="node-text">기술과 몸이 가장 완벽하게
-                                                            만나는 지점을 찾아내어, 최상의 컨디션을 유지하는 라이프스타일을 완성함.</span></div>
+                                                            만나는 지점을 찾아내어, 최상의 컨디션을 유지하는 라이프스타일을 완성함.</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                            class="node-text">ACTS38의 슬로건 : 브랜드가 고객에게 전달하는 최종적인 메시지와 감동</span></div>
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 슬로건 : 브랜드가 고객에게 전달하는 최종적인 메시지와 감동</span>
+                                    </div>
                                     <div class="sub-nodes">
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
                                                     class="status">•</i><span class="node-text"><b>Main
-                                                        Slogan</b></span></div>
+                                                        Slogan</b></span>
+                                            </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
                                                             class="status">•</i><span class="node-text">"진정한 아름다움은 당신의
-                                                            미소입니다."</span></div>
+                                                            미소입니다."</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
-                                                    class="status">•</i><span class="node-text">Sub Slogan</span></div>
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text">Sub Slogan</span>
+                                            </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
                                                             class="status">•</i><span class="node-text">항상 여유와 미소를 잃지
-                                                            않도록, 보이지 않는 곳에서 당신을 수호하는 조용하고 강력한 기술력.</span></div>
+                                                            않도록, 보이지 않는 곳에서 당신을 수호하는 조용하고 강력한 기술력.</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                            class="node-text">ACTS38의 지향점</span></div>
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                            class="node-text">ACTS38의 지향점</span>
+                                    </div>
                                     <div class="sub-nodes">
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
                                                     class="status">•</i><span class="node-text">Silence Etiquette (싸이런스
-                                                    에티켓)</span></div>
+                                                    에티켓)</span>
+                                            </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
                                                             class="status">•</i><span class="node-text">진정한 전문가는 자신을
-                                                            드러내지 않습니다. 냄새, 자극 등 모든 번거로움을 제거한 절제된 프리미엄.</span></div>
+                                                            드러내지 않습니다. 냄새, 자극 등 모든 번거로움을 제거한 절제된 프리미엄.</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
                                                     class="status">•</i><span class="node-text">Private Performance
-                                                    (프라이빗 퍼포먼스)</span></div>
+                                                    (프라이빗 퍼포먼스)</span>
+                                            </div>
                                             <div class="sub-nodes">
                                                 <div class="branch">
-                                                    <div class="node" onclick="toggleChildren(this)"><i
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
                                                             class="status">•</i><span class="node-text">대중적인 과시보다, 확실한
-                                                            변화를 당신만이 체감할 수 있는 전문가적 가치를 지향.</span></div>
+                                                            변화를 당신만이 체감할 수 있는 전문가적 가치를 지향.</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -391,28 +411,375 @@
                             </div>
                         </div>
                         <div class="branch">
-                            <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                    class="node-text">
-                                    <h3>Ⅱ. ACTS38 TECHNOLOGY &amp; R&amp;D (기술적 권위)</h3>
-                                </span></div>
+                            <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                    class="node-text">Ⅱ.&nbsp;<span lang="EN-US"
+                                        style="font-size:9.0pt;line-height: 107%;font-family:&quot;맑은 고딕&quot;;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font: minor-fareast;mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:&quot;Times New Roman&quot;; mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language: KO;mso-bidi-language:AR-SA">TECHNOLOGY
+                                        &amp; R&amp;D&nbsp;</span></span>
+                            </div>
                             <div class="sub-nodes">
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                            class="node-text"><b>2.1 Evidence-Based의 핵심 원료</b></span></div>
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                            class="node-text">2.1 ACTS38의 보스웰리아(Wild Harvest)</span>
+                                    </div>
                                     <div class="sub-nodes">
                                         <div class="branch">
-                                            <div class="node" onclick="toggleChildren(this)"><i
-                                                    class="status">•</i><span class="node-text">새로운 항목...</span></div>
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text"><b>원산지 및
+                                                        식물원종</b>:&nbsp;</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">인도(India) 고산지대의
+                                                            척박한 환경에서 자생하는 보스웰리아 세라타(Boswellia Serrata)의 수지(Gum)를 원료로
+                                                            채택함.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text"><b>원료의
+                                                        특성</b>:&nbsp;</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">가혹한 기후에서 나무가
+                                                            스스로를 보호하기 위해 분비한 천연 수액만을 엄선하여 사용함.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text"><b>차별화된
+                                                        출발점</b>:&nbsp;</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">유효 성분의 함량과 활성도가
+                                                            검증된 인도산 정품 보스웰리아 세라타(Boswellia Serrata)만을 고집하여 저가형 보스웰리아 원료와
+                                                            차별화된 품질을 확보함.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                            class="node-text"><b>2.2 매커니즘 (Action Mechanism)</b></span></div>
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                            class="node-text">2.2 기술의 초격차 : 5.398%(AKBA+KBA)</span>
+                                    </div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text">수치 기반의 효능 입증</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">마케팅적 수사가 아닌 객관적
+                                                            데이터와 공인 분석 기관(UMC Scientific)의 HPLC 실측치에 근거한 품질 관리 체계를
+                                                            구축함.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text">지표 성분 함량의 극대화</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">
+                                                            <p
+                                                                style="cursor: text; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(227, 227, 227); background-color: rgb(30, 31, 32);">
+                                                                ACTS38의 5.98%(AKBA+KBA) :</p>
+                                                        </span>
+                                                    </div>
+                                                    <div class="sub-nodes">
+                                                        <div class="branch">
+                                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                                    class="status">•</i><span class="node-text"><span
+                                                                        style="color: rgb(227, 227, 227); background-color: rgb(30, 31, 32);">염증
+                                                                        억제의 핵심 지표 성분인 KBA(3.40%)와 AKBA(2.58%)의 합산 함량
+                                                                        5.00%
+                                                                        이상을 상시 유지함.</span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">
+                                                            <p
+                                                                style="margin: 0px; color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">
+                                                                식약처 기준 대비 약 20% 상회 근거 및 고시 정보:<br></p>
+                                                        </span>
+                                                    </div>
+                                                    <div class="sub-nodes">
+                                                        <div class="branch">
+                                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                                    class="status">•</i><span class="node-text"><span
+                                                                        style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">근거
+                                                                        고시:&nbsp;</span></span>
+                                                            </div>
+                                                            <div class="sub-nodes">
+                                                                <div class="branch">
+                                                                    <div class="node"
+                                                                        onclick="toggleChildren(this, event)"><i
+                                                                            class="status">•</i><span
+                                                                            class="node-text"><span
+                                                                                style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">식품의약품안전처
+                                                                                고시 제2020-92호 (건강기능식품의 기준 및 규격 개정
+                                                                                고시)</span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="branch">
+                                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                                    class="status">•</i><span class="node-text"><span
+                                                                        style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">고시
+                                                                        일자:</span></span>
+                                                            </div>
+                                                            <div class="sub-nodes">
+                                                                <div class="branch">
+                                                                    <div class="node"
+                                                                        onclick="toggleChildren(this, event)"><i
+                                                                            class="status">•</i><span
+                                                                            class="node-text"><span
+                                                                                style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">2020년
+                                                                                9월 21일 (현재까지 보스웰리아 추출물의 표준 규격으로
+                                                                                적용됨)</span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="branch">
+                                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                                    class="status">•</i><span class="node-text"><span
+                                                                        style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">표준
+                                                                        함량:&nbsp;</span></span>
+                                                            </div>
+                                                            <div class="sub-nodes">
+                                                                <div class="branch">
+                                                                    <div class="node"
+                                                                        onclick="toggleChildren(this, event)"><i
+                                                                            class="status">•</i><span class="node-text">
+                                                                            <p
+                                                                                style="margin: 0px; color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">
+                                                                                해당 고시에 의거, 보스웰리아 추출물은 지표성분인 AKBA와 KBA의
+                                                                                합으로서
+                                                                                50mg/g(5.0%) 이상을 함유해야 함.</p>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="branch">
+                                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                                    class="status">•</i><span class="node-text"><span
+                                                                        style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">비교
+                                                                        분석:</span></span>
+                                                            </div>
+                                                            <div class="sub-nodes">
+                                                                <div class="branch">
+                                                                    <div class="node"
+                                                                        onclick="toggleChildren(this, event)"><i
+                                                                            class="status">•</i><span
+                                                                            class="node-text"><span
+                                                                                style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">ACTS38의
+                                                                                실측치 5.98%는 국가 표준 규격인 5.0% 대비 19.6%(약
+                                                                                20%) 높은
+                                                                                수치이며, 이는 공정 관리의 정밀함과 원료의 고활성을
+                                                                                입증함.</span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="branch">
+                                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                                    class="status">•</i><span class="node-text"><span
+                                                                        style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">비고
+                                                                        :&nbsp;</span></span>
+                                                            </div>
+                                                            <div class="sub-nodes">
+                                                                <div class="branch">
+                                                                    <div class="node"
+                                                                        onclick="toggleChildren(this, event)"><i
+                                                                            class="status">•</i><span
+                                                                            class="node-text"><span
+                                                                                style="color: rgb(227, 227, 227); background-color: rgb(40, 42, 44);">ACTS38(5.98%)와
+                                                                                식약처 기준 (5.0%)의 단순 차이값은 0.98%p(퍼센트
+                                                                                포인트)이나, 기술적
+                                                                                우위를 표현할 때는 “기준치 대비 증가율(Rate of
+                                                                                Increase)”을 사용함.</span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="branch">
-                                    <div class="node" onclick="toggleChildren(this)"><i class="status">•</i><span
-                                            class="node-text"><b>2.3 딥-엑스트랙션 솔루션(Deep-Extraction Solution)</b></span>
+                                    <div class="node" onclick="toggleChildren(this, event)"><i class="status">•</i><span
+                                            class="node-text">학술적 근거 (Evidence-Based Research)</span>
+                                    </div>
+                                    <div class="sub-nodes">
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text">관절 보호 및 연골 복원
+                                                    (Restore)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>기전</b>: AKBA가
+                                                            염증 유발 효소인 5-LOX를 선택적으로 억제하여 관절염의 주요 원인인 류코트리엔 생성을 차단하고 연골
+                                                            조직을
+                                                            보호함.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>근거
+                                                                논문</b>: <i>Boswellic acids: novel, specific,
+                                                                nonredox inhibitors of 5-lipoxygenase</i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>출처</b>:
+                                                            <b>British Journal of Pharmacology</b></span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>지표</b>: <b>인용
+                                                                횟수 약 1,300회 이상</b></span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>전문가 가치</b>:
+                                                            보스웰릭산이 5-LOX의 직접적인 억제제임을 세계 최초 수준으로 규명한 기념비적 연구로, ACTS38
+                                                            리커버리
+                                                            기전의 핵심 뿌리임.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text">피부 자가포식 및 항노화
+                                                    (Invisible Care)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>기전</b>:
+                                                            보스웰릭산의 강력한 항염 및 항산화 효과가 피부 노화의 핵심 인자인 NF-κB 활성을 억제하여 피부 장벽을
+                                                            복원함.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>근거
+                                                                논문</b>: <i>Boswellic acids in chronic
+                                                                inflammatory diseases</i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>출처</b>:
+                                                            <b>Nature 관련 저널군</b> 또는 <b>Cancer Research</b> 등</span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>지표</b>: 관련 경로
+                                                            연구 <b>인용 횟수 1,500회 이상</b></span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>전문가 가치</b>:
+                                                            NF-κB 경로 억제를 통한 광노화 방지 및 피부 보호 메커니즘은 더마 코스메틱 시장에서 기술적 신뢰도의
+                                                            척도로 활용됨.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text">신경 보호 및 바디-마인드 연결
+                                                    (Limitless)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>기전</b>:
+                                                            보스웰릭산이 중추신경계의 염증 반응을 제어하고 신경 세포의 산화적 손상을 방지하여 인지 기능 및 뇌 건강을
+                                                            수호함.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>근거
+                                                                논문</b>: <i>Nuclear factor-kappaB as a target for
+                                                                cancer drug development</i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>출처</b>:
+                                                            <b>Cancer Biology &amp; Therapy</b> 등</span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>지표</b>: <b>인용
+                                                                횟수 2,000회 이상</b></span>
+                                                    </div>
+                                                </div>
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text"><b>전문가 가치</b>:
+                                                            항염 기전이 전신을 넘어 신경계까지 보호한다는 논리는 바디와 마인드를 동시에 케어하는 ACTS38의 확장성을
+                                                            뒷받침함.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="branch">
+                                            <div class="node" onclick="toggleChildren(this, event)"><i
+                                                    class="status">•</i><span class="node-text">기타 논문 리스트 (Supplementary
+                                                    Research References)</span>
+                                            </div>
+                                            <div class="sub-nodes">
+                                                <div class="branch">
+                                                    <div class="node" onclick="toggleChildren(this, event)"><i
+                                                            class="status">•</i><span class="node-text">
+                                                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                                                <li><b>관절 및 항염</b>: <i>Phytomedicine</i> (인용 1,100회
+                                                                    이상)</li>
+                                                                <li><b>피부 및 더마</b>: <i>Dermatologic Therapy</i> (피부
+                                                                    항노화)</li>
+                                                                <li><b>신경계 및 전신</b>: <i>World Journal of
+                                                                        Gastroenterology</i> 등</li>
+                                                            </ul>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -421,144 +788,146 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
-            window.addEventListener('load', () => {
-                initPanAndZoom();
+    <script>
+        window.addEventListener('load', () => {
+            initPanAndZoom();
+        });
+
+        function toggleChildren(el, e) {
+            if (e) e.stopPropagation();
+            const branch = el.parentElement;
+            const nextSub = branch.querySelector(':scope > .sub-nodes');
+            if (nextSub) nextSub.classList.toggle('hidden');
+        }
+
+        function searchNodes(query) {
+            const nodes = document.querySelectorAll('.node');
+            const term = query.toLowerCase();
+
+            nodes.forEach(node => {
+                const text = node.querySelector('.node-text').innerText.toLowerCase();
+                if (term !== "" && text.includes(term)) {
+                    node.classList.add('highlight');
+                    let parent = node.parentElement.closest('.sub-nodes');
+                    while (parent) {
+                        parent.classList.remove('hidden');
+                        parent = parent.parentElement.closest('.sub-nodes');
+                    }
+                } else {
+                    node.classList.remove('highlight');
+                }
+            });
+        }
+
+        // 🔍 무한 캔버스 (Pan & Zoom) 엔진 (터치 지원 업데이트)
+        function initPanAndZoom() {
+            const viewport = document.getElementById('viewport');
+            const canvas = document.getElementById('canvas');
+
+            let scale = window.innerWidth < 768 ? 0.6 : 1;
+            let translateX = 0;
+            let translateY = 0;
+            let isPanning = false;
+            let startX, startY;
+
+            // 초기 위치 설정 (정중앙 기반)
+            function centerView() {
+                // .container의 padding이 500px이므로 root 노드는 (500, 500) 근처에 위치함
+                translateX = window.innerWidth / 2 - 500;
+                translateY = window.innerHeight / 2 - 500;
+                updateTransform();
+            }
+
+            function updateTransform() {
+                canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                // 🔹 CSS 변수를 사용하여 UI 요소들 크기 동기화
+                document.documentElement.style.setProperty('--zoom-scale', scale);
+            }
+            centerView();
+
+            // [확대/축소] 마우스 휠
+            window.addEventListener('wheel', (e) => {
+                const zoomSpeed = 0.001;
+                const delta = -e.deltaY;
+                const oldScale = scale;
+                scale = Math.min(Math.max(0.1, scale + delta * zoomSpeed), 3);
+
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                translateX -= (mouseX - translateX) * (scale / oldScale - 1);
+                translateY -= (mouseY - translateY) * (scale / oldScale - 1);
+                updateTransform();
+            }, { passive: false });
+
+            // [화면 이동] 마우스 드래그
+            viewport.addEventListener('mousedown', (e) => {
+                if (e.target.closest('.node')) return;
+                isPanning = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
             });
 
-            function toggleChildren(el) {
-                const branch = el.parentElement;
-                const nextSub = branch.querySelector(':scope > .sub-nodes');
-                if (nextSub) nextSub.classList.toggle('hidden');
-            }
+            window.addEventListener('mousemove', (e) => {
+                if (!isPanning) return;
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+            });
 
-            function searchNodes(query) {
-                const nodes = document.querySelectorAll('.node');
-                const term = query.toLowerCase();
+            window.addEventListener('mouseup', () => isPanning = false);
 
-                nodes.forEach(node => {
-                    const text = node.querySelector('.node-text').innerText.toLowerCase();
-                    if (term !== "" && text.includes(term)) {
-                        node.classList.add('highlight');
-                        let parent = node.parentElement.closest('.sub-nodes');
-                        while (parent) {
-                            parent.classList.remove('hidden');
-                            parent = parent.parentElement.closest('.sub-nodes');
-                        }
-                    } else {
-                        node.classList.remove('highlight');
-                    }
-                });
-            }
+            // [모바일 터치 지원] 드래그 & 핀치 줌
+            let initialPinchDistance = null;
 
-            // 🔍 무한 캔버스 (Pan & Zoom) 엔진 (터치 지원 업데이트)
-            function initPanAndZoom() {
-                const viewport = document.getElementById('viewport');
-                const canvas = document.getElementById('canvas');
-
-                let scale = window.innerWidth < 768 ? 0.6 : 1;
-                let translateX = 0;
-                let translateY = 0;
-                let isPanning = false;
-                let startX, startY;
-
-                // 초기 위치 설정 (정중앙 기반)
-                function centerView() {
-                    // .container의 padding이 500px이므로 root 노드는 (500, 500) 근처에 위치함
-                    translateX = window.innerWidth / 2 - 500;
-                    translateY = window.innerHeight / 2 - 500;
-                    updateTransform();
-                }
-
-                function updateTransform() {
-                    canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-                    // 🔹 CSS 변수를 사용하여 UI 요소들 크기 동기화
-                    document.documentElement.style.setProperty('--zoom-scale', scale);
-                }
-                centerView();
-
-                // [확대/축소] 마우스 휠
-                window.addEventListener('wheel', (e) => {
-                    const zoomSpeed = 0.001;
-                    const delta = -e.deltaY;
-                    const oldScale = scale;
-                    scale = Math.min(Math.max(0.1, scale + delta * zoomSpeed), 3);
-
-                    const mouseX = e.clientX;
-                    const mouseY = e.clientY;
-                    translateX -= (mouseX - translateX) * (scale / oldScale - 1);
-                    translateY -= (mouseY - translateY) * (scale / oldScale - 1);
-                    updateTransform();
-                }, { passive: false });
-
-                // [화면 이동] 마우스 드래그
-                viewport.addEventListener('mousedown', (e) => {
-                    if (e.target.closest('.node')) return;
+            viewport.addEventListener('touchstart', (e) => {
+                if (e.target.closest('.node')) return;
+                if (e.touches.length === 1) {
                     isPanning = true;
-                    startX = e.clientX - translateX;
-                    startY = e.clientY - translateY;
-                });
-
-                window.addEventListener('mousemove', (e) => {
-                    if (!isPanning) return;
-                    translateX = e.clientX - startX;
-                    translateY = e.clientY - startY;
-                    updateTransform();
-                });
-
-                window.addEventListener('mouseup', () => isPanning = false);
-
-                // [모바일 터치 지원] 드래그 & 핀치 줌
-                let initialPinchDistance = null;
-
-                viewport.addEventListener('touchstart', (e) => {
-                    if (e.target.closest('.node')) return;
-                    if (e.touches.length === 1) {
-                        isPanning = true;
-                        startX = e.touches[0].clientX - translateX;
-                        startY = e.touches[0].clientY - translateY;
-                    } else if (e.touches.length === 2) {
-                        isPanning = false;
-                        initialPinchDistance = Math.hypot(
-                            e.touches[0].clientX - e.touches[1].clientX,
-                            e.touches[0].clientY - e.touches[1].clientY
-                        );
-                    }
-                }, { passive: false });
-
-                window.addEventListener('touchmove', (e) => {
-                    if (isPanning && e.touches.length === 1) {
-                        translateX = e.touches[0].clientX - startX;
-                        translateY = e.touches[0].clientY - startY;
-                        updateTransform();
-                        e.preventDefault();
-                    } else if (e.touches.length === 2 && initialPinchDistance !== null) {
-                        const currentDistance = Math.hypot(
-                            e.touches[0].clientX - e.touches[1].clientX,
-                            e.touches[0].clientY - e.touches[1].clientY
-                        );
-                        const pinchScale = currentDistance / initialPinchDistance;
-                        const oldScale = scale;
-                        scale = Math.min(Math.max(0.1, scale * pinchScale), 3);
-
-                        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-                        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-                        translateX -= (centerX - translateX) * (scale / oldScale - 1);
-                        translateY -= (centerY - translateY) * (scale / oldScale - 1);
-
-                        updateTransform();
-                        initialPinchDistance = currentDistance;
-                        e.preventDefault();
-                    }
-                }, { passive: false });
-
-                window.addEventListener('touchend', () => {
+                    startX = e.touches[0].clientX - translateX;
+                    startY = e.touches[0].clientY - translateY;
+                } else if (e.touches.length === 2) {
                     isPanning = false;
-                    initialPinchDistance = null;
-                });
-            }
-        </script>
+                    initialPinchDistance = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                }
+            }, { passive: false });
+
+            window.addEventListener('touchmove', (e) => {
+                if (isPanning && e.touches.length === 1) {
+                    translateX = e.touches[0].clientX - startX;
+                    translateY = e.touches[0].clientY - startY;
+                    updateTransform();
+                    e.preventDefault();
+                } else if (e.touches.length === 2 && initialPinchDistance !== null) {
+                    const currentDistance = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                    const pinchScale = currentDistance / initialPinchDistance;
+                    const oldScale = scale;
+                    scale = Math.min(Math.max(0.1, scale * pinchScale), 3);
+
+                    const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                    const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                    translateX -= (centerX - translateX) * (scale / oldScale - 1);
+                    translateY -= (centerY - translateY) * (scale / oldScale - 1);
+
+                    updateTransform();
+                    initialPinchDistance = currentDistance;
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            window.addEventListener('touchend', () => {
+                isPanning = false;
+                initialPinchDistance = null;
+            });
+        }
+    </script>
 </body>
 
 </html>
